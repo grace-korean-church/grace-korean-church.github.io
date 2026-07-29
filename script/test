@@ -79,6 +79,12 @@ assert_contains "_site/index.html" "Moline" "주소에 Moline 포함"
 assert_absent "_site/index.html" "G-BFEVR64TEW" "페낭 GA ID 없음"
 assert_absent "_site/index.html" "naver-site-verification" "페낭 네이버 인증 토큰 없음"
 
+section "테마"
+assert_contains "_site/assets/css/style.css" "#1f4e79" "style.css에 네이비 적용됨"
+assert_absent "_site/assets/css/style.css" "#4fa9ff" "style.css에 페낭 하늘색 없음"
+assert_contains "_site/index.html" "#1f4e79" "크리티컬 CSS에 네이비 적용됨"
+assert_absent "_site/index.html" "#4fa9ff" "크리티컬 CSS에 페낭 하늘색 없음"
+
 section "잔재 검사"
 assert_no_residue
 assert_no_account_numbers

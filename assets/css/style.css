@@ -6,8 +6,8 @@
   /* Colors - Light Mode */
   --color-background: #f5f7fb;
   --color-surface: #ffffff;
-  --color-primary: #4fa9ff;
-  --color-primary-soft: #e0f0ff;
+  --color-primary: #1f4e79;
+  --color-primary-soft: #e8f0f9;
   --color-text-main: #222222;
   --color-text-muted: #666666;
   --color-border: #e5e7eb;
@@ -40,8 +40,8 @@
 [data-theme="dark"] {
   --color-background: #1a1a1a;
   --color-surface: #2d2d2d;
-  --color-primary: #5eb3ff;
-  --color-primary-soft: #1e3a52;
+  --color-primary: #4a86c5;
+  --color-primary-soft: #1a3550;
   --color-text-main: #e8e8e8;
   --color-text-muted: #a8a8a8;
   --color-border: #404040;
@@ -296,7 +296,7 @@ img {
   display: inline-block;
   padding: 1rem 2rem;
   background-color: #ffffff;
-  color: #1a365d;
+  color: #1f4e79;
   font-size: 1rem;
   font-weight: 600;
   border-radius: var(--radius-medium);
@@ -306,7 +306,7 @@ img {
 
 .btn-hero-primary:hover {
   background-color: #f0f0f0;
-  color: #1a365d;
+  color: #1f4e79;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
