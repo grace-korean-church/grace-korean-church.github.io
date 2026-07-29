@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'ko' }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- Primary Meta Tags -->
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <meta name="title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}">
+  <meta name="description" content="{{ page.description | default: page.summary | default: site.description }}">
+  <meta name="keywords" content="{{ page.keywords | default: site.keywords }}">
+  <meta name="author" content="{{ site.author }}">
+  <meta name="language" content="{{ site.lang | default: 'ko' }}">
+  <meta name="application-name" content="{{ site.church.name }}">
+  <meta name="apple-mobile-web-app-title" content="{{ site.church.name }}">
+  <meta name="theme-color" content="#2563eb">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}">
+  <meta property="og:description" content="{{ page.description | default: page.summary | default: site.description }}">
+  <meta property="og:site_name" content="{{ site.title }}">
+  <meta property="og:locale" content="{{ site.locale | default: 'ko_KR' }}">
+  {% if page.image %}
+  <meta property="og:image" content="{{ page.image | absolute_url }}">
+  {% else %}
+  <meta property="og:image" content="{{ '/assets/images/og-image.jpg' | absolute_url }}">
+  {% endif %}
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="{{ page.url | absolute_url }}">
+  <meta name="twitter:title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}">
+  <meta name="twitter:description" content="{{ page.description | default: page.summary | default: site.description }}">
+  {% if page.image %}
+  <meta name="twitter:image" content="{{ page.image | absolute_url }}">
+  {% else %}
+  <meta name="twitter:image" content="{{ '/assets/images/og-image.jpg' | absolute_url }}">
+  {% endif %}
+
+  <!-- Local Business Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Church",
+    "name": "{{ site.church.name }}",
+    "alternateName": "{{ site.church.name_en }}",
+    "url": "{{ site.url }}{{ site.baseurl }}",
+    "logo": "{{ '/assets/images/logo.png' | absolute_url }}",
+    "image": "{{ '/assets/images/og-image.jpg' | absolute_url }}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ site.church.address }}",
+      "addressLocality": "Penang",
+      "postalCode": "11200",
+      "addressRegion": "Penang",
+      "addressCountry": "MY"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": {{ site.church.latitude }},
+      "longitude": {{ site.church.longitude }}
+    },
+    "telephone": "{{ site.church.phone }}",
+    "email": "{{ site.church.email }}",
+    "foundingDate": "{{ site.established }}",
+    "description": "{{ site.description }}",
+    "priceRange": "$$",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Sunday",
+        "opens": "11:00",
+        "closes": "12:30",
+        "description": "주일예배"
+      }
+    ],
+    "sameAs": [
+      {% if site.social.facebook != "" %}"{{ site.social.facebook }}",{% endif %}
+      {% if site.social.instagram != "" %}"{{ site.social.instagram }}",{% endif %}
+      {% if site.social.youtube != "" %}"{{ site.social.youtube }}"{% endif %}
+    ]
+  }
+  </script>
+
+  <!-- RSS Feed -->
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | absolute_url }}">
+
+  <!-- Additional SEO -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow">
+  <meta name="naver-site-verification" content="c51673d897229c805b54a1aa9c40381ce260949a" />
+  <meta name="revisit-after" content="7 days">
+  <meta name="format-detection" content="telephone=yes">
+  <meta name="publisher" content="{{ site.church.name }}">
+  <meta name="copyright" content="{{ site.church.name }}">
+  <meta name="geo.region" content="MY-07">
+  <meta name="geo.placename" content="Penang">
+  <meta name="geo.position" content="{{ site.church.latitude }};{{ site.church.longitude }}">
+  <meta name="ICBM" content="{{ site.church.latitude }}, {{ site.church.longitude }}">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/images/favicon-32x32.png' | relative_url }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ '/assets/images/favicon-16x16.png' | relative_url }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}">
+
+  <!-- Preload LCP hero image -->
+  <link rel="preload" as="image" type="image/webp" fetchpriority="high"
+        href="{{ '/assets/images/hero-bg.webp' | relative_url }}"
+        media="(min-width: 768px)">
+  <link rel="preload" as="image" type="image/webp" fetchpriority="high"
+        href="{{ '/assets/images/hero-bg-mobile.webp' | relative_url }}"
+        media="(max-width: 767px)">
+
+  <!-- Preconnect to external origins -->
+  <link rel="preconnect" href="https://www.google.com" crossorigin>
+
+  <!-- Critical CSS (above-the-fold) -->
+  <style>
+    :root{--color-background:#f5f7fb;--color-surface:#fff;--color-primary:#4fa9ff;--color-primary-soft:#e0f0ff;--color-text-main:#222;--color-text-muted:#666;--color-border:#e5e7eb;--shadow-soft:0 8px 20px rgba(15,30,60,.06);--shadow-medium:0 4px 12px rgba(15,30,60,.1);--radius-large:16px;--radius-medium:10px;--radius-small:6px;--space-xs:.5rem;--space-sm:1rem;--space-md:1.5rem;--space-lg:2rem;--space-xl:3rem;--space-2xl:4rem;--max-width:1040px;--font-base:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+    [data-theme="dark"]{--color-background:#1a1a1a;--color-surface:#2d2d2d;--color-primary:#5eb3ff;--color-primary-soft:#1e3a52;--color-text-main:#e8e8e8;--color-text-muted:#a8a8a8;--color-border:#404040;--shadow-soft:0 8px 20px rgba(0,0,0,.3);--shadow-medium:0 4px 12px rgba(0,0,0,.4)}
+    *{margin:0;padding:0;box-sizing:border-box}html{font-size:18px;scroll-behavior:smooth}body{font-family:var(--font-base);color:var(--color-text-main);background-color:var(--color-background);line-height:1.7;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;transition:background-color .3s ease,color .3s ease}a{color:var(--color-primary);text-decoration:none;transition:color .2s ease}img{max-width:100%;height:auto;display:block}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 var(--space-md)}
+    .site-header{position:sticky;top:0;background-color:var(--color-surface);box-shadow:var(--shadow-soft);z-index:100}.header-inner{display:flex;align-items:center;justify-content:space-between;padding-top:var(--space-sm);padding-bottom:var(--space-sm)}.site-logo a{display:inline-flex;align-items:center}.site-logo-img{display:block;height:38px;width:auto}.site-logo-dark{display:none}[data-theme="dark"] .site-logo-light{display:none}[data-theme="dark"] .site-logo-dark{display:block}.site-nav{display:flex;gap:var(--space-xs);flex-wrap:wrap}.nav-link{padding:var(--space-xs) var(--space-sm);border-radius:var(--radius-small);font-size:.9rem;font-weight:500;color:var(--color-text-main);transition:all .2s ease}
+    .theme-toggle{background:none;border:none;cursor:pointer;padding:.5rem;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-small);color:var(--color-text-main);font-size:1.25rem}.menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:.5rem;z-index:101}.hamburger{display:block;width:24px;height:2px;background-color:var(--color-text-main);position:relative}.hamburger::before,.hamburger::after{content:'';position:absolute;width:24px;height:2px;background-color:var(--color-text-main);left:0;transition:transform .3s ease}.hamburger::before{top:-7px}.hamburger::after{top:7px}
+    .site-main{min-height:60vh;padding:0}
+    .hero-fullscreen{position:relative;min-height:64vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.4)),url('/assets/images/hero-bg.webp');background-size:cover;background-position:center;background-repeat:no-repeat;overflow:hidden}.hero-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.3)}.hero-content{position:relative;z-index:1;text-align:center;padding:var(--space-xl);max-width:800px}.hero-fullscreen .hero-title{font-size:3rem;font-weight:800;color:#fff;margin-bottom:var(--space-md);line-height:1.2;text-shadow:0 2px 10px rgba(0,0,0,.3)}.hero-tagline{font-size:1.5rem;color:rgba(255,255,255,.95);margin-bottom:var(--space-sm);font-weight:500}.hero-time{font-size:1.75rem;color:#fff;font-weight:600;margin-bottom:var(--space-lg)}.hero-fullscreen .hero-text{font-size:1.25rem;color:rgba(255,255,255,.9);margin-bottom:var(--space-xl);max-width:600px;margin-left:auto;margin-right:auto;line-height:1.6}.hero-fullscreen .hero-actions{display:flex;gap:var(--space-md);justify-content:center;flex-wrap:wrap}
+    .btn-hero-primary{display:inline-block;padding:1rem 2rem;background-color:#fff;color:#1a365d;font-size:1rem;font-weight:600;border-radius:var(--radius-medium);transition:all .3s ease;box-shadow:0 4px 15px rgba(0,0,0,.2)}
+    @media(max-width:767px){.hero-fullscreen{min-height:50vh;background-image:linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.4)),url('/assets/images/hero-bg-mobile.webp')}.hero-content{padding:var(--space-md)}.hero-fullscreen .hero-title{font-size:2rem;line-height:1.3}.hero-tagline{font-size:1.1rem}.hero-time{font-size:1.25rem}.hero-fullscreen .hero-text{font-size:1rem;margin-bottom:var(--space-lg)}.hero-fullscreen .hero-actions{gap:var(--space-sm)}.btn-hero-primary,.btn-hero-outline{padding:.85rem 1.5rem;font-size:.9rem}.header-inner{flex-direction:row;justify-content:space-between;align-items:center}.menu-toggle{display:block}.site-nav{position:fixed;top:0;right:-100%;width:70%;max-width:300px;height:100vh;background-color:var(--color-surface);flex-direction:column;justify-content:flex-start;padding:5rem 2rem 2rem;box-shadow:-4px 0 20px rgba(0,0,0,.1);transition:right .3s ease;z-index:100}.site-nav.active{right:0}.nav-link{width:100%;padding:1rem 0;border-bottom:1px solid var(--color-border);font-size:1rem}.site-logo-img{height:32px}}
+  </style>
+
+  <!-- Full CSS (non-render-blocking) -->
+  <link rel="preload" href="{{ '/assets/css/style.css' | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}"></noscript>
+
+  <!-- Theme: inline critical init to prevent FOUC -->
+  <script>
+    (function(){var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)})();
+  </script>
+  <script defer src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
+
+  <!-- Google tag (gtag.js) - deferred to avoid forced reflow during render -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.addEventListener('load', function() {
+      var s = document.createElement('script');
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-BFEVR64TEW';
+      s.async = true;
+      document.head.appendChild(s);
+      gtag('js', new Date());
+      gtag('config', 'G-BFEVR64TEW');
+    });
+  </script>
+
+  {% include website-schema.html %}
+  {% include navigation-schema.html %}
+  {% include breadcrumb-schema.html %}
+  {% if page.url == "/" %}
+  {% include faq-schema.html %}
+  {% endif %}
+</head>
+<body>
+  {% include header.html %}
+
+  <main class="site-main">
+    {{ content }}
+  </main>
+
+  {% include footer.html %}
+
+  <!-- Google Analytics Event Tracking -->
+  <script defer src="{{ '/assets/js/analytics.js' | relative_url }}"></script>
+
+  <!-- Mobile Menu Toggle -->
+  <script defer src="{{ '/assets/js/mobile-menu.js' | relative_url }}"></script>
+
+  <!-- Tawk.to Live Chat (temporarily disabled)
+  <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/696847aabe1aa3197aa1bf35/1jevlftgh';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  -->
+</body>
+</html>

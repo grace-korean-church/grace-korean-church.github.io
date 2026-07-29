@@ -1,0 +1,35 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="site-logo">
+      <a href="{{ '/' | relative_url }}" aria-label="페낭한인교회">
+        <img src="{{ '/assets/images/logo-text-color.png' | relative_url }}"
+             alt="페낭한인교회"
+             class="site-logo-img site-logo-light"
+             width="800" height="198"
+             loading="eager"
+             decoding="async">
+        <img src="{{ '/assets/images/logo-text-white.png' | relative_url }}"
+             alt=""
+             class="site-logo-img site-logo-dark"
+             width="800" height="198"
+             loading="eager"
+             decoding="async"
+             aria-hidden="true">
+      </a>
+    </div>
+
+    <button class="menu-toggle" aria-label="메뉴 열기">
+      <span class="hamburger"></span>
+    </button>
+
+    <nav class="site-nav">
+      <a href="{{ '/' | relative_url }}" class="nav-link">홈</a>
+      <a href="{{ '/pages/about/' | relative_url }}" class="nav-link">교회 소개</a>
+      <a href="{{ '/pages/services/' | relative_url }}" class="nav-link">예배 안내</a>
+      <a href="{{ '/news/' | relative_url }}" class="nav-link">소식 & 공지</a>
+      <a href="{{ '/pages/ministries/' | relative_url }}" class="nav-link">사역 & 부서</a>
+      <a href="{{ '/pages/location/' | relative_url }}" class="nav-link">찾아오시는 길</a>
+      <button class="theme-toggle" aria-label="테마 전환" title="테마 전환">🌙</button>
+    </nav>
+  </div>
+</header>

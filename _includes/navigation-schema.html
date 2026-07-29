@@ -1,0 +1,44 @@
+<!-- Site Navigation Schema for Sitelinks -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    {
+      "@type": "SiteNavigationElement",
+      "position": 1,
+      "name": "교회소개",
+      "description": "페낭한인교회의 비전, 사명, 섬기는 이들을 소개합니다",
+      "url": "{{ site.url }}{{ site.baseurl }}/pages/about/"
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "position": 2,
+      "name": "예배안내",
+      "description": "주일예배, 수요예배, 금요기도회 등 예배 시간과 장소 안내",
+      "url": "{{ site.url }}{{ site.baseurl }}/pages/services/"
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "position": 3,
+      "name": "찾아오시는 길",
+      "description": "페낭한인교회 위치, 지도, 교통편 안내",
+      "url": "{{ site.url }}{{ site.baseurl }}/pages/location/"
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "position": 4,
+      "name": "소식 & 공지",
+      "description": "교회 소식, 주보, 행사 안내",
+      "url": "{{ site.url }}{{ site.baseurl }}/news/"
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "position": 5,
+      "name": "사역부서",
+      "description": "어린이부, 학생부, 찬양팀 등 교회 사역 부서 소개",
+      "url": "{{ site.url }}{{ site.baseurl }}/pages/ministries/"
+    }
+  ]
+}
+</script>

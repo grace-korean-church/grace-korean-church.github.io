@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+# 은혜한인교회 사이트 빌드 검증
+# 사용법: script/test
+set -uo pipefail
+
+cd "$(dirname "$0")/.." || exit 1
+
+FAILED=0
+GREEN=$'\033[32m'; RED=$'\033[31m'; DIM=$'\033[2m'; RESET=$'\033[0m'
+
+pass() { printf '  %s✓%s %s\n' "$GREEN" "$RESET" "$1"; }
+fail() { printf '  %s✗%s %s\n' "$RED" "$RESET" "$1"; FAILED=1; }
+section() { printf '\n%s%s%s\n' "$DIM" "$1" "$RESET"; }
+
+# _site 기준 상대경로의 파일이 생성되었는지
+assert_built() {
+  if [ -f "_site/$1" ]; then pass "$2"; else fail "$2 — _site/$1 없음"; fi
+}
+
+# 파일이 문자열을 포함하는지
+assert_contains() {
+  if [ ! -f "$1" ]; then fail "$3 — 파일 없음: $1"; return; fi
+  if grep -qF -- "$2" "$1"; then pass "$3"; else fail "$3 — '$2' 없음"; fi
+}
+
+# 파일이 문자열을 포함하지 않는지
+assert_absent() {
+  if [ ! -f "$1" ]; then fail "$3 — 파일 없음: $1"; return; fi
+  if grep -qF -- "$2" "$1"; then fail "$3 — '$2' 발견됨"; else pass "$3"; fi
+}
+
+# 빌드 결과물 전체에 페낭 잔재가 없는지
+assert_no_residue() {
+  local hits
+  hits=$(grep -rilE '페낭|penang|pkc1994|BFEVR|이충원|Menara|Tanjung|cafe\.daum\.net' _site 2>/dev/null || true)
+  if [ -z "$hits" ]; then
+    pass "페낭 잔재 없음"
+  else
+    fail "페낭 잔재 발견:"
+    printf '%s\n' "$hits" | while IFS= read -r p; do printf '      %s\n' "$p"; done
+  fi
+}
+
+# 계좌번호 형태의 숫자열이 사이트에 노출되지 않는지.
+# 개인정보를 검사 대상 문자열로 이 파일에 적어두면 그 자체가 유출이므로,
+# 이름이 아니라 계좌번호의 '형태'를 본다.
+assert_no_account_numbers() {
+  local hits
+  hits=$(grep -rlE '[0-9]{4}[ -][0-9]{4}[ -][0-9]{4}' _site 2>/dev/null || true)
+  if [ -z "$hits" ]; then
+    pass "계좌번호 형태 문자열 없음"
+  else
+    fail "계좌번호로 보이는 숫자열 발견:"
+    printf '%s\n' "$hits" | while IFS= read -r p; do printf '      %s\n' "$p"; done
+  fi
+}
+
+section "빌드"
+if bundle exec jekyll build --quiet 2>build.log; then
+  pass "jekyll build 성공"
+else
+  fail "jekyll build 실패"
+  sed 's/^/      /' build.log
+  rm -f build.log
+  exit 1
+fi
+if [ -s build.log ]; then
+  fail "빌드 경고 발생"
+  sed 's/^/      /' build.log
+fi
+rm -f build.log
+
+section "출력물"
+assert_built "index.html" "홈 생성됨"
+
+section "잔재 검사"
+assert_no_residue
+assert_no_account_numbers
+
+printf '\n'
+if [ "$FAILED" -eq 0 ]; then
+  printf '%s모든 검증 통과%s\n' "$GREEN" "$RESET"
+else
+  printf '%s검증 실패%s\n' "$RED" "$RESET"
+fi
+exit "$FAILED"

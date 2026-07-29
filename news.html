@@ -1,0 +1,40 @@
+---
+layout: default
+title: "소식 & 공지"
+last_modified_at: 2026-03-01T09:37:06+08:00
+---
+
+<div class="container">
+  <header class="page-header">
+    <h1 class="page-title">소식 & 공지</h1>
+    <p class="page-subtitle">페낭 한인 교회의 최근 소식과 공지사항을 확인하세요</p>
+  </header>
+
+  {% if site.posts.size > 0 %}
+  <div class="card-grid">
+    {% for post in site.posts %}
+    <article class="card">
+      <div class="card-meta">
+        <span>{{ post.date | date: "%Y년 %m월 %d일" }}</span>
+        {% if post.category %}
+        <span class="card-category">{{ post.category }}</span>
+        {% endif %}
+      </div>
+      <h3 class="card-title">
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      </h3>
+      {% if post.summary %}
+      <p class="card-summary">{{ post.summary }}</p>
+      {% endif %}
+      <a href="{{ post.url | relative_url }}" class="card-link">자세히 보기 →</a>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="text-center" style="padding: 3rem 0;">
+    <p style="color: var(--color-text-muted); font-size: 1.1rem;">
+      아직 등록된 소식이 없습니다.
+    </p>
+  </div>
+  {% endif %}
+</div>

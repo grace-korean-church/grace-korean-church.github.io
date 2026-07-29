@@ -40,9 +40,9 @@
 | `_data/i18n.yml` | 한/영 UI 문구 사전. 헤더·푸터·버튼 문구의 유일한 출처 |
 | `en/index.md` | 영어 Welcome 랜딩 — 예배시간·위치·연락처·소개 |
 | `en/about.md` | 영어 About Us |
-| `about.md` | 한국어 교회 소개 |
-| `services.md` | 한국어 예배 안내 |
-| `visit.md` | 한국어 찾아오시는 길 |
+| `about.md` | 한국어 교회 소개 (Task 7에서 신규 작성) |
+| `services.md` | 한국어 예배 안내 (Task 7에서 신규 작성) |
+| `visit.md` | 한국어 찾아오시는 길 (Task 7에서 신규 작성) |
 | `.github/workflows/deploy.yml` | Actions 빌드·배포 워크플로 |
 | `script/test` | 빌드 + 출력물 검증 스크립트. 이 프로젝트의 테스트 하네스 |
 | `assets/images/README.md` | 교회에서 받을 이미지 자산 규격 |
@@ -70,7 +70,9 @@
 
 ### 가져오지 않는 파일
 
-`_data/` 전체 · `_posts/` 전체 · `pages/ministries.md` · `pages/history.md` · `assets/images/` 전체 · `PKC LOGO.ai` · `history.png` · `.git/`
+`_data/` 전체 · `_posts/` 전체 · **`pages/` 전체** · `assets/images/` 전체 · `PKC LOGO.ai` · `history.png` · `.git/`
+
+`pages/` 를 통째로 제외하는 이유: Task 7이 세 페이지를 처음부터 새로 쓰므로 복사본이 살아남지 않는데, 템플릿의 `pages/services.md`에는 페낭교회 은행 계좌번호와 예금주 실명이, `pages/about.md`에는 교인 실명이 들어 있다. 복사하면 public 저장소의 git 히스토리에 영구히 남는다.
 
 ---
 
@@ -81,10 +83,11 @@
 **Files:**
 - Create: `script/test`
 - Create (복사): `_layouts/`, `_includes/`, `assets/css/`, `assets/js/`, `index.md`, `news.html`, `feed.xml`, `sitemap.xml`, `robots.txt`, `_config.yml`, `Gemfile`, `.gitignore`, `.ruby-version`
+- **복사하지 않음**: `pages/` 전체 (개인정보 포함 — Step 1 참고)
 
 **Interfaces:**
 - Consumes: 없음 (첫 태스크)
-- Produces: `script/test` — 인자 없이 실행하면 `bundle exec jekyll build` 후 assertion을 돌리고 실패 시 exit code 1. 제공 함수: `assert_built <_site기준 상대경로> <설명>`, `assert_contains <파일경로> <문자열> <설명>`, `assert_absent <파일경로> <문자열> <설명>`, `assert_no_residue`. 이후 모든 태스크가 이 함수들로 assertion을 추가한다.
+- Produces: `script/test` — 인자 없이 실행하면 `bundle exec jekyll build` 후 assertion을 돌리고 실패 시 exit code 1. 제공 함수: `assert_built <_site기준 상대경로> <설명>`, `assert_contains <파일경로> <문자열> <설명>`, `assert_absent <파일경로> <문자열> <설명>`, `assert_no_residue`, `assert_no_account_numbers`. 이후 모든 태스크가 이 함수들로 assertion을 추가한다.
 
 - [ ] **Step 1: 템플릿 파일 복사**
 
@@ -101,13 +104,24 @@ cp -R "$SRC/assets/js" assets/
 cp "$SRC/_config.yml" "$SRC/Gemfile" "$SRC/.gitignore" "$SRC/.ruby-version" .
 cp "$SRC/index.md" "$SRC/news.html" "$SRC/feed.xml" "$SRC/sitemap.xml" "$SRC/robots.txt" .
 
-# 페이지는 루트로 평탄화하며 이름 변경
-cp "$SRC/pages/about.md" about.md
-cp "$SRC/pages/services.md" services.md
-cp "$SRC/pages/location.md" visit.md
-
 mkdir -p _posts assets/images script
 ```
+
+**`pages/` 하위 파일은 복사하지 않는다.** Task 7이 `about.md`·`services.md`·`visit.md`를 처음부터 새로 작성하므로 복사본은 한 줄도 살아남지 않는다. 그런데 템플릿의 `pages/services.md`에는 페낭교회 **은행 계좌번호와 예금주 실명**이, `pages/about.md`에는 **교인 실명**이 들어 있다. 복사하면 이 저장소의 git 히스토리에 영구히 남는다 — 이 저장소는 무료 GitHub Pages를 쓰기 위해 public이어야 한다. 얻는 것 없이 개인정보만 들여오는 셈이므로 복사하지 않는다.
+
+Task 1~6 구간에는 `/about/`·`/services/`·`/visit/` URL이 존재하지 않는다. 정상이다.
+
+같은 이유로 **`_includes/faq-schema.html`도 원본을 쓰지 않는다.** 템플릿의 FAQ 본문에 페낭교회 은행 계좌번호·예금주 실명·연락처가 들어 있다. Task 6이 전면 교체하므로, Task 1에서는 아래 스텁으로 만든다. `_layouts/default.html`이 이 파일을 `include` 하므로 파일 자체는 존재해야 빌드가 된다.
+
+```html
+<!-- FAQ Structured Data (JSON-LD) -->
+<!-- TODO: Task 6에서 은혜한인교회 FAQ로 채운다.
+     템플릿 원본의 FAQ에는 다른 교회의 은행 계좌번호와 예금주 실명이
+     들어 있어 복사하지 않았다. 이 저장소는 무료 GitHub Pages를 쓰기 위해
+     public이어야 하므로 히스토리에 남으면 안 된다. -->
+```
+
+`_config.yml`과 `_includes/footer.html`에 남는 페낭 대표 전화·이메일은 해당 교회가 웹사이트에 공개한 기관 연락처이고 Task 2·4에서 교체된다. 개인 계좌·실명과 성격이 달라 그대로 둔다.
 
 - [ ] **Step 2: `.gitignore`에서 `Gemfile.lock` 무시 해제**
 
@@ -177,7 +191,21 @@ assert_no_residue() {
     pass "페낭 잔재 없음"
   else
     fail "페낭 잔재 발견:"
-    printf '      %s\n' $hits
+    printf '%s\n' "$hits" | while IFS= read -r p; do printf '      %s\n' "$p"; done
+  fi
+}
+
+# 계좌번호 형태의 숫자열이 사이트에 노출되지 않는지.
+# 개인정보를 검사 대상 문자열로 이 파일에 적어두면 그 자체가 유출이므로,
+# 이름이 아니라 계좌번호의 '형태'를 본다.
+assert_no_account_numbers() {
+  local hits
+  hits=$(grep -rlE '[0-9]{4}[ -][0-9]{4}[ -][0-9]{4}' _site 2>/dev/null || true)
+  if [ -z "$hits" ]; then
+    pass "계좌번호 형태 문자열 없음"
+  else
+    fail "계좌번호로 보이는 숫자열 발견:"
+    printf '%s\n' "$hits" | while IFS= read -r p; do printf '      %s\n' "$p"; done
   fi
 }
 
@@ -201,6 +229,7 @@ assert_built "index.html" "홈 생성됨"
 
 section "잔재 검사"
 assert_no_residue
+assert_no_account_numbers
 
 printf '\n'
 if [ "$FAILED" -eq 0 ]; then
@@ -1255,9 +1284,9 @@ EOF
 
 **Files:**
 - Modify: `index.md` (전체 교체)
-- Modify: `about.md` (전체 교체)
-- Modify: `services.md` (전체 교체)
-- Modify: `visit.md` (전체 교체)
+- Create: `about.md` (Task 1에서 복사하지 않았으므로 신규 생성)
+- Create: `services.md` (신규 생성)
+- Create: `visit.md` (신규 생성)
 - Modify: `news.html` (front matter와 헤더)
 - Modify: `script/test`
 
