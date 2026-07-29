@@ -1,9 +1,22 @@
+{%- assign lang = page.lang | default: 'ko' -%}
+{%- assign t = site.data.i18n[lang] -%}
+{%- if lang == 'en' -%}
+  {%- assign home_url = '/en/' -%}
+{%- else -%}
+  {%- assign home_url = '/' -%}
+{%- endif -%}
+{%- comment -%}
+  언어 토글 목적지: 대응 페이지(alt_url)가 있으면 그쪽으로,
+  없으면 상대 언어의 홈으로 보낸다. 죽은 링크를 만들지 않는다.
+{%- endcomment -%}
+{%- assign switch_url = page.alt_url | default: t.lang_switch.other_home -%}
+
 <header class="site-header">
   <div class="container header-inner">
     <div class="site-logo">
-      <a href="{{ '/' | relative_url }}" aria-label="페낭한인교회">
+      <a href="{{ home_url | relative_url }}" aria-label="{{ site.church.name }}">
         <img src="{{ '/assets/images/logo-text-color.png' | relative_url }}"
-             alt="페낭한인교회"
+             alt="{{ site.church.name }}"
              class="site-logo-img site-logo-light"
              width="800" height="198"
              loading="eager"
@@ -18,18 +31,23 @@
       </a>
     </div>
 
-    <button class="menu-toggle" aria-label="메뉴 열기">
+    <button class="menu-toggle" aria-label="{{ t.menu_toggle }}">
       <span class="hamburger"></span>
     </button>
 
     <nav class="site-nav">
-      <a href="{{ '/' | relative_url }}" class="nav-link">홈</a>
-      <a href="{{ '/pages/about/' | relative_url }}" class="nav-link">교회 소개</a>
-      <a href="{{ '/pages/services/' | relative_url }}" class="nav-link">예배 안내</a>
-      <a href="{{ '/news/' | relative_url }}" class="nav-link">소식 & 공지</a>
-      <a href="{{ '/pages/ministries/' | relative_url }}" class="nav-link">사역 & 부서</a>
-      <a href="{{ '/pages/location/' | relative_url }}" class="nav-link">찾아오시는 길</a>
-      <button class="theme-toggle" aria-label="테마 전환" title="테마 전환">🌙</button>
+      {%- if lang == 'en' %}
+      <a href="{{ '/en/' | relative_url }}" class="nav-link">{{ t.nav.home }}</a>
+      <a href="{{ '/en/about/' | relative_url }}" class="nav-link">{{ t.nav.about }}</a>
+      {%- else %}
+      <a href="{{ '/' | relative_url }}" class="nav-link">{{ t.nav.home }}</a>
+      <a href="{{ '/about/' | relative_url }}" class="nav-link">{{ t.nav.about }}</a>
+      <a href="{{ '/services/' | relative_url }}" class="nav-link">{{ t.nav.services }}</a>
+      <a href="{{ '/news/' | relative_url }}" class="nav-link">{{ t.nav.news }}</a>
+      <a href="{{ '/visit/' | relative_url }}" class="nav-link">{{ t.nav.visit }}</a>
+      {%- endif %}
+      <a href="{{ switch_url | relative_url }}" class="nav-link nav-lang" hreflang="{% if lang == 'en' %}ko{% else %}en{% endif %}">{{ t.lang_switch.to_other }}</a>
+      <button class="theme-toggle" aria-label="{{ t.theme_toggle }}" title="{{ t.theme_toggle }}">🌙</button>
     </nav>
   </div>
 </header>

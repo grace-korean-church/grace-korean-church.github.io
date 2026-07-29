@@ -1891,3 +1891,22 @@ img {
     max-width: 80% !important;
   }
 }
+
+/* ==========================================================================
+   Footer social & language toggle
+   ========================================================================== */
+
+.footer-social {
+  margin-top: var(--space-xs);
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.footer-social a {
+  margin-right: var(--space-sm);
+}
+
+.nav-lang {
+  font-weight: 600;
+  color: var(--color-primary);
+}

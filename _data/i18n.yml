@@ -1,0 +1,45 @@
+# 사이트 UI 문구 사전
+# 헤더·푸터·버튼 등 화면 구성 요소의 문구는 전부 여기서 관리한다.
+# 페이지 본문 콘텐츠는 각 마크다운 파일에 둔다.
+
+ko:
+  nav:
+    home: "홈"
+    about: "교회 소개"
+    services: "예배 안내"
+    news: "소식"
+    visit: "오시는 길"
+  footer:
+    address: "주소"
+    phone: "전화"
+    email: "이메일"
+    pastor: "담임목사"
+    map: "지도 열기"
+    follow: "함께하기"
+    rights: "All rights reserved."
+  lang_switch:
+    to_other: "English"
+    other_home: "/en/"
+  theme_toggle: "테마 전환"
+  menu_toggle: "메뉴 열기"
+
+en:
+  nav:
+    home: "Home"
+    about: "About"
+    services: "Services"
+    news: "News"
+    visit: "Visit"
+  footer:
+    address: "Address"
+    phone: "Phone"
+    email: "Email"
+    pastor: "Senior Pastor"
+    map: "Open in Maps"
+    follow: "Connect"
+    rights: "All rights reserved."
+  lang_switch:
+    to_other: "한국어"
+    other_home: "/"
+  theme_toggle: "Toggle theme"
+  menu_toggle: "Open menu"

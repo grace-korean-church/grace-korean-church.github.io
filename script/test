@@ -85,6 +85,10 @@ assert_absent "_site/assets/css/style.css" "#4fa9ff" "style.css에 페낭 하늘
 assert_contains "_site/index.html" "#1f4e79" "크리티컬 CSS에 네이비 적용됨"
 assert_absent "_site/index.html" "#4fa9ff" "크리티컬 CSS에 페낭 하늘색 없음"
 
+section "이중 언어"
+assert_contains "_site/index.html" 'href="/en/"' "한국어 페이지에 EN 토글 있음"
+assert_contains "_site/index.html" ">홈<" "한국어 네비게이션 출력됨"
+
 section "잔재 검사"
 assert_no_residue
 assert_no_account_numbers

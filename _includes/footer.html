@@ -1,9 +1,12 @@
+{%- assign lang = page.lang | default: 'ko' -%}
+{%- assign t = site.data.i18n[lang] -%}
+
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-info">
       <div class="footer-logo">
         <img src="{{ '/assets/images/logo-text-color.png' | relative_url }}"
-             alt="{{ site.title }}"
+             alt="{{ site.church.name }}"
              class="footer-logo-img footer-logo-light"
              width="800" height="198"
              loading="lazy"
@@ -17,18 +20,31 @@
              aria-hidden="true">
       </div>
       <p class="footer-address">
-        <strong>주소:</strong> <span class="address-text">598-01-02, Menara Asas, Tanjung Bungah, 11200, Penang, Malaysia</span>
-        <a href="https://maps.app.goo.gl/r4pNWPJhSdtdAYDF8" target="_blank" rel="noopener noreferrer" class="map-link">지도열기</a><br>
-        <strong>전화:</strong> <a href="tel:+60-4-299-7935">+60-4-299-7935</a><br>
-        <strong>휴대전화:</strong> <a href="tel:+60-17-510-3771">+60-17-510-3771</a><br>
-        <strong>이메일:</strong> <a href="mailto:penangkor@pkc1994.org">penangkor@pkc1994.org</a><br>
-        <strong>카페:</strong> <a href="https://cafe.daum.net/PenangChurch" target="_blank" rel="noopener noreferrer">cafe.daum.net/PenangChurch</a>
+        <strong>{{ t.footer.address }}:</strong>
+        <span class="address-text">{{ site.church.address }}</span>
+        <a href="{{ site.church.map_url }}" target="_blank" rel="noopener noreferrer" class="map-link">{{ t.footer.map }}</a><br>
+        {%- if site.church.phone != "" %}
+        <strong>{{ t.footer.phone }}:</strong> <a href="tel:{{ site.church.phone }}">{{ site.church.phone }}</a><br>
+        {%- endif %}
+        {%- if site.church.email != "" %}
+        <strong>{{ t.footer.email }}:</strong> <a href="mailto:{{ site.church.email }}">{{ site.church.email }}</a><br>
+        {%- endif %}
       </p>
-      <p class="footer-pastor">담임목사: {{ site.pastor }}</p>
+      <p class="footer-pastor">{{ t.footer.pastor }}: {{ site.pastor }}</p>
+
+      <p class="footer-social">
+        <strong>{{ t.footer.follow }}:</strong>
+        {%- if site.social.facebook != "" %}
+        <a href="{{ site.social.facebook }}" target="_blank" rel="noopener noreferrer">Facebook</a>
+        {%- endif %}
+        {%- if site.social.youtube != "" %}
+        <a href="{{ site.social.youtube }}" target="_blank" rel="noopener noreferrer">YouTube</a>
+        {%- endif %}
+      </p>
     </div>
 
     <div class="footer-copyright">
-      <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}. All rights reserved.</p>
+      <p>&copy; {{ site.time | date: "%Y" }} {{ site.church.name }}. {{ t.footer.rights }}</p>
     </div>
   </div>
 </footer>
