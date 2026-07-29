@@ -73,6 +73,12 @@ rm -f build.log
 section "출력물"
 assert_built "index.html" "홈 생성됨"
 
+section "사이트 설정"
+assert_contains "_site/index.html" "은혜한인교회" "교회명 출력됨"
+assert_contains "_site/index.html" "Moline" "주소에 Moline 포함"
+assert_absent "_site/index.html" "G-BFEVR64TEW" "페낭 GA ID 없음"
+assert_absent "_site/index.html" "naver-site-verification" "페낭 네이버 인증 토큰 없음"
+
 section "잔재 검사"
 assert_no_residue
 assert_no_account_numbers

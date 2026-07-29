@@ -1,42 +1,52 @@
 # Site settings
-title: "페낭한인교회 (Penang Korean Church)"
-description: "말레이시아 페낭에서 함께 예배하는 한인 교회입니다 - Since 1994"
-url: "https://www.pkc1994.org"
+title: "은혜한인교회 (Grace Korean Church)"
+description: "미국 일리노이주 몰린(Quad Cities)에서 함께 예배하는 한인 교회입니다"
+url: "https://grace-korean-church.github.io"
 baseurl: ""
-established: 1994
-pastor: "이충원 목사"
+pastor: "오규섭 목사"
+# TODO: 설립 연도 확인 후 채울 것. 채우면 JSON-LD에 foundingDate가 출력된다.
+established: ""
 
 # SEO settings
-author: "페낭한인교회"
-keywords: "페낭한인교회, Penang Korean Church, 말레이시아 한인교회, 페낭 교회, 한인 예배, 주일예배, 페낭 한인, 말레이시아 교회, 해외 한인교회"
+author: "은혜한인교회"
+keywords: "은혜한인교회, Grace Korean Church, 몰린 한인교회, Moline 한인교회, Quad Cities 한인교회, 일리노이 한인교회, 미주 한인교회, 한인 예배, 주일예배"
 locale: "ko_KR"
 lang: "ko"
 
 # Church information
 church:
-  name: "페낭한인교회"
-  name_en: "Penang Korean Church"
-  address: "598-01-02, Menara Asas, Tanjung Bungah, 11200, Penang, Malaysia"
-  phone: "+60-4-299-7935"
-  mobile: "+60-17-510-3771"
-  email: "penangkor@pkc1994.org"
-  cafe: "https://cafe.daum.net/PenangChurch"
-  latitude: "5.4601"
-  longitude: "100.2834"
+  name: "은혜한인교회"
+  name_en: "Grace Korean Church"
+  address: "4915 21st Ave A, Moline, IL 61265, USA"
+  address_locality: "Moline"
+  address_region: "IL"
+  postal_code: "61265"
+  address_country: "US"
+  map_url: "https://maps.app.goo.gl/eXbKCooB82qSZeou7"
+  # TODO: 몰린 시 기준 근사 좌표. 교회 건물 정확한 좌표로 교체할 것
+  latitude: "41.5067"
+  longitude: "-90.5151"
+  # TODO: 대표 전화번호 확인 후 채울 것. 비어 있으면 푸터에 표시되지 않는다.
+  phone: ""
+  # TODO: 대표 이메일 확인 후 채울 것. 비어 있으면 푸터에 표시되지 않는다.
+  email: ""
 
 # Social media
 social:
-  facebook: ""
+  facebook: "https://www.facebook.com/GKC.Moline/"
   instagram: ""
-  youtube: ""
+  youtube: "https://www.youtube.com/@gracekoreanchurchassemblyo5929"
 
 # Analytics
-google_analytics: "G-BFEVR64TEW"
+# 비워두면 추적 스크립트를 아예 출력하지 않는다.
+# GA4 속성을 만들면 측정 ID(G-XXXXXXXXXX)를 여기 넣기만 하면 동작한다.
+google_analytics: ""
 
 # Build settings
 markdown: kramdown
+timezone: America/Chicago
 permalink: /news/:year/:month/:day/:title/
-future: true  # Show posts with future dates
+future: true
 
 # Defaults
 defaults:
@@ -45,15 +55,23 @@ defaults:
       type: "posts"
     values:
       layout: "post"
+      lang: "ko"
   - scope:
-      path: "pages"
+      path: ""
+      type: "pages"
     values:
-      layout: "page"
+      lang: "ko"
+  - scope:
+      path: "en"
+      type: "pages"
+    values:
+      lang: "en"
 
 # Exclude from build
 exclude:
   - Gemfile
   - Gemfile.lock
-  - node_modules
-  - vendor
   - README.md
+  - docs
+  - script
+  - vendor
