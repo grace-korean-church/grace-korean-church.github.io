@@ -1865,8 +1865,10 @@ EOF
 
 ```bash
 section "이미지 참조"
+# CSS는 ../images/ 상대경로도 쓰므로 두 형태를 모두 잡는다.
+# 절대경로만 보면 style.css의 참조를 통째로 놓친다.
 missing=""
-for ref in $(grep -rhoE '/assets/images/[A-Za-z0-9._-]+' _site --include='*.html' --include='*.css' | sort -u); do
+for ref in $(grep -rhoE '(/assets/images/|\.\./images/)[A-Za-z0-9._-]+' _site --include='*.html' --include='*.css' | sort -u); do
   [ -f "_site$ref" ] || missing="$missing $ref"
 done
 if [ -z "$missing" ]; then
