@@ -9,7 +9,7 @@ alt_url: /en/
 ---
 
 <!-- Hero Section -->
-<section class="hero-fullscreen hero-placeholder">
+<section class="hero-fullscreen">
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1 class="hero-title">은혜한인교회</h1>

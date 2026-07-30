@@ -11,7 +11,16 @@ alt_url: /en/about/
 
 ## 환영합니다
 
-은혜한인교회는 미국 일리노이주 몰린(Moline), Quad Cities 지역에서 한국어로 예배드리는 한인 교회입니다.
+은혜한인교회는 미국 일리노이주 몰린(Moline), Quad Cities 지역에서 한국어로 예배드리는 한인 교회입니다. 하나님의성회(Assembly of God) 소속입니다.
+
+<div class="page-hero-image">
+  <picture>
+    <source srcset="{{ '/assets/images/church-exterior.webp' | relative_url }}" type="image/webp">
+    <img src="{{ '/assets/images/church-exterior.jpg' | relative_url }}"
+         alt="은혜한인교회 예배당 전경"
+         loading="lazy" width="1024" height="768">
+  </picture>
+</div>
 
 낯선 땅에서 신앙의 뿌리를 함께 내리고, 서로의 삶을 나누며, 이웃을 섬기는 공동체가 되기를 원합니다. 오래 이 지역에 사신 분도, 이제 막 오신 분도 모두 환영합니다.
 

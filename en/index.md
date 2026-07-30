@@ -8,7 +8,7 @@ alt_lang: ko
 alt_url: /
 ---
 
-<section class="hero-fullscreen hero-placeholder">
+<section class="hero-fullscreen">
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1 class="hero-title">Grace Korean Church</h1>

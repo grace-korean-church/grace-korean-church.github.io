@@ -12,7 +12,7 @@ alt_url: /about/
 ## Who We Are
 
 Grace Korean Church (은혜한인교회) is a Korean-speaking congregation in Moline,
-Illinois, serving the Quad Cities area.
+Illinois, serving the Quad Cities area. We are affiliated with the Assembly of God.
 
 We gather to worship, to share life with one another, and to serve our neighbors.
 Long-time residents and newcomers alike are welcome.
