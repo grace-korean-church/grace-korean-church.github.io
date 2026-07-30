@@ -28,3 +28,12 @@ Desktop.ini
 
 # Logs
 *.log
+
+# 이미지 원본 — 저장소에 커밋하지 않는다.
+# 리사이즈·EXIF 제거를 거친 결과물만 assets/images/에 넣는다.
+# (원본이 루트에 커밋돼 5MB 단체사진이 공개 서비스된 적이 있다)
+_source/
+/*.jpg
+/*.jpeg
+/*.png
+/*.heic

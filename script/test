@@ -111,6 +111,36 @@ section "구조화 데이터"
 assert_contains "_site/index.html" '"@type": "FAQPage"' "FAQ 스키마 출력됨"
 assert_absent "_site/index.html" "/pages/" "구 URL 경로 없음"
 
+section "발행 파일"
+# assets/ 밖에 이미지가 발행되면 원본이 딸려 들어간 것이다.
+# 실제로 5MB짜리 교인 단체사진 원본이 저장소 루트에 커밋돼
+# 공개 서비스된 적이 있다. 파일명이 비ASCII라 눈으로도 놓치기 쉽다.
+stray=$(find _site -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \
+        -o -iname '*.webp' -o -iname '*.heic' \) -not -path '_site/assets/*' 2>/dev/null || true)
+if [ -z "$stray" ]; then
+  pass "assets/ 밖에 발행된 이미지 없음"
+else
+  fail "assets/ 밖에 이미지가 발행됨:"
+  printf '%s\n' "$stray" | while IFS= read -r p; do printf '      %s\n' "$p"; done
+fi
+
+# 발행 이미지에 촬영 위치·기기 정보가 남아 있으면 안 된다.
+if command -v magick >/dev/null 2>&1; then
+  leaky=""
+  for img in $(find _site/assets/images -type f \( -iname '*.jpg' -o -iname '*.jpeg' \) 2>/dev/null); do
+    meta=$(magick identify -format '%[EXIF:GPSLatitude]%[EXIF:Make]%[EXIF:Model]' "$img" 2>/dev/null || true)
+    [ -n "$meta" ] && leaky="$leaky $img"
+  done
+  if [ -z "$leaky" ]; then
+    pass "발행 이미지에 EXIF 위치·기기 정보 없음"
+  else
+    fail "EXIF에 위치·기기 정보가 남은 이미지:"
+    printf '%s\n' $leaky | while IFS= read -r p; do printf '      %s\n' "$p"; done
+  fi
+else
+  pass "발행 이미지 EXIF 검사 건너뜀 (magick 없음)"
+fi
+
 section "잔재 검사"
 assert_no_residue
 assert_no_account_numbers

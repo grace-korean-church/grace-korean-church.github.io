@@ -69,6 +69,8 @@ defaults:
 
 # Exclude from build
 exclude:
+  # _source/는 이미지 원본 보관용. 절대 빌드에 포함하지 않는다.
+  - _source
   - Gemfile
   - Gemfile.lock
   - README.md
