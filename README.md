@@ -115,12 +115,16 @@ grep -rn "TODO" --include="*.md" --include="*.html" --include="*.yml" . \
   | grep -v "^./docs/" | grep -v "^./_site/"
 ```
 
-- 설립 연도, 교단 정식 표기
+- 설립 연도
 - 전체 예배 시간표
 - 전화번호, 이메일
 - 교회 표어 / 연간 주제
 - 담임목사 약력
 - 교회 소개글 본문
-- 이미지 자산 (`assets/images/README.md` 참고)
+- 오시는 길 상세 안내 (주요 도로, 주차 위치, 건물 입구)
+- 부서별 예배(어린이부·학생부 등) 운영 여부
+- 로고 · 파비콘 · 담임목사 사진 (현재 상태는 `assets/images/README.md` 참고)
 - 정확한 교회 좌표
 - Google Analytics 측정 ID (`_config.yml` 의 `google_analytics`)
+
+교단은 하나님의성회(Assembly of God)로 확인되어 `about.md` 에 반영했습니다.
