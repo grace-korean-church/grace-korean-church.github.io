@@ -72,6 +72,10 @@ rm -f build.log
 
 section "출력물"
 assert_built "index.html" "홈 생성됨"
+assert_built "about/index.html" "교회 소개 생성됨"
+assert_built "services/index.html" "예배 안내 생성됨"
+assert_built "visit/index.html" "찾아오시는 길 생성됨"
+assert_built "news/index.html" "소식 목록 생성됨"
 
 section "사이트 설정"
 assert_contains "_site/index.html" "은혜한인교회" "교회명 출력됨"
@@ -96,6 +100,7 @@ assert_contains "_site/index.html" 'content="US-IL"' "geo.region US-IL"
 
 section "구조화 데이터"
 assert_contains "_site/index.html" '"@type": "FAQPage"' "FAQ 스키마 출력됨"
+assert_absent "_site/index.html" "/pages/" "구 URL 경로 없음"
 
 section "잔재 검사"
 assert_no_residue
