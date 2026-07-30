@@ -1881,9 +1881,10 @@ img {
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(10, 25, 45, 0.88) 0%,
-    rgba(10, 25, 45, 0.78) 45%,
-    rgba(10, 25, 45, 0.45) 100%
+    rgba(10, 25, 45, 0.92) 0%,
+    rgba(10, 25, 45, 0.88) 38%,
+    rgba(10, 25, 45, 0.60) 62%,
+    rgba(10, 25, 45, 0.38) 100%
   );
 }
 
@@ -1915,9 +1916,14 @@ img {
 
 .section-photo-congregation {
   background-image: url('../images/congregation.webp');
-  /* 사람들이 아래쪽 밝은 영역에 오도록 */
-  background-position: center 30%;
-  padding-bottom: 8rem;
+  /* 배경 이미지는 교인들이 모두 들어가도록 가로로 길게(2.7:1) 잘라두었다.
+     섹션이 그보다 더 납작하면 cover가 위아래를 잘라내므로, 최소 높이를
+     줘서 사람이 잘리지 않게 한다. */
+  background-position: center top;
+  /* 사진에서 앉아 있는 앞줄까지가 대략 이 높이에 들어온다.
+     더 줄이면 앞줄이 잘리고, 더 늘리면 아스팔트만 남는다. */
+  min-height: 29rem;
+  padding-bottom: 7rem;
 }
 
 @media (max-width: 767px) {
