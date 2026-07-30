@@ -1,21 +1,21 @@
 ---
 layout: default
-title: "은혜한인교회"
-description: "미국 일리노이주 몰린의 은혜한인교회입니다. 함께 예배하는 한인 교회, 예배·교제·사역 안내"
-keywords: "은혜한인교회, Grace Korean Church, Moline, 일리노이주, 한인교회"
-last_modified_at: 2026-07-30T00:00:00+00:00
+title: "페낭한인교회"
+description: "말레이시아 페낭에서 함께 예배하는 한인 교회. 1994년 설립, 주일예배 오전 11시, 예배·교제·사역 안내"
+keywords: "페낭한인교회, Penang Korean Church, 말레이시아 한인교회, 페낭 교회, 한인 예배"
+last_modified_at: 2026-03-05T18:37:11+08:00
 ---
 
 <!-- Hero Section -->
 <section class="hero-fullscreen">
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <h1 class="hero-title">은혜한인교회</h1>
+    <h1 class="hero-title">페낭한인교회</h1>
     <p class="hero-tagline">믿음의 첫 걸음이 행복한 교회</p>
-    <p class="hero-text">은혜한인교회를 찾아주신 모든 분들을 환영합니다</p>
-    <p class="hero-time">주일 예배로 오세요</p>
+    <p class="hero-text">페낭한인교회를 찾아주신 모든 분들을 환영합니다</p>
+    <p class="hero-time">일요일 오전 11시 예배로 오세요</p>
     <div class="hero-actions">
-      <a href="{{ '/services/' | relative_url }}" class="btn btn-hero-primary">예배 안내</a>
+      <a href="{{ '/pages/services/' | relative_url }}" class="btn btn-hero-primary">예배 안내</a>
       <a href="https://forms.gle/ZXZWFYHBkx3wZgr88" target="_blank" rel="noopener noreferrer" class="btn btn-hero-outline" style="border: 2px solid #fff; color: #fff;">방문 예약하기</a>
     </div>
   </div>
@@ -26,16 +26,16 @@ last_modified_at: 2026-07-30T00:00:00+00:00
   <div class="container">
     <div class="two-column location-grid">
       <div class="column-info-lifehouse">
-        <h2 class="location-address"><span class="address-text">{{ site.church.address }}</span></h2>
-        <p class="location-subtitle">미국 일리노이주 몰린, Quad Cities 지역</p>
+        <h2 class="location-time">일요일 오전 11시</h2>
+        <p class="location-address"><span class="address-text">598-01-02, Menara Asas, Tanjung Bungah, 11200, Penang, Malaysia</span></p>
         <div class="location-buttons">
-          <a href="{{ '/visit/' | relative_url }}" class="btn btn-outline">📍 찾아오시는 길</a>
+          <a href="https://maps.google.com/?q=Menara+Asas,+Tanjung+Bungah,+Penang" target="_blank" class="btn btn-outline">📍 구글맵</a>
         </div>
       </div>
       <div class="column-map">
         <iframe
-          title="은혜한인교회 위치 - Google Maps"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2963.1!2d-90.5!3d41.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0!2z!5e0!3m2!1sen!2sus!4v0"
+          title="페낭한인교회 위치 - Google Maps"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3971.543!2d100.2834!3d5.4601!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x304ac38f4b5c3d9d%3A0x5e8f9c0e5d5c5d5c!2sMenara%20Asas%2C%20Tanjung%20Bungah%2C%20Penang!5e0!3m2!1sen!2smy!4v1234567890!5m2!1sen!2smy"
           width="100%"
           height="350"
           style="border:0; border-radius: 12px;"
@@ -66,7 +66,7 @@ last_modified_at: 2026-07-30T00:00:00+00:00
 <section class="section-fullwidth section-gray">
   <div class="container">
     <header class="section-header">
-      <h2 class="section-title">소식</h2>
+      <h2 class="section-title">소식 & 공지</h2>
       <p class="section-subtitle">최근 교회 소식을 전해드립니다</p>
     </header>
 
@@ -137,8 +137,8 @@ last_modified_at: 2026-07-30T00:00:00+00:00
   <div class="container">
     <div class="cta-content">
       <h2 class="cta-title">함께 예배드려요</h2>
-      <p class="cta-text">은혜한인교회는 여러분을 환영합니다</p>
-      <a href="{{ '/visit/' | relative_url }}" class="btn btn-hero-primary">찾아오시는 길</a>
+      <p class="cta-text">페낭한인교회는 여러분을 기다립니다</p>
+      <a href="https://forms.gle/ZXZWFYHBkx3wZgr88" target="_blank" rel="noopener noreferrer" class="btn btn-hero-primary">방문 예약하기</a>
     </div>
   </div>
 </section>

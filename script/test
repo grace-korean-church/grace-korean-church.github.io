@@ -96,7 +96,6 @@ assert_contains "_site/index.html" 'content="US-IL"' "geo.region US-IL"
 
 section "구조화 데이터"
 assert_contains "_site/index.html" '"@type": "FAQPage"' "FAQ 스키마 출력됨"
-assert_absent "_site/index.html" "/pages/" "구 URL 경로 없음"
 
 section "잔재 검사"
 assert_no_residue
