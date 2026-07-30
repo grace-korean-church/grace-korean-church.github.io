@@ -32,8 +32,7 @@
     phoneLinks.forEach(function(link) {
       link.addEventListener('click', function(e) {
         const phoneNumber = this.getAttribute('href').replace('tel:', '');
-        const phoneType = phoneNumber.includes('17') ? '휴대전화' : '일반전화';
-        trackEvent('전화_클릭', '연락처', phoneType + ': ' + phoneNumber);
+        trackEvent('전화_클릭', '연락처', phoneNumber);
       });
     });
   }

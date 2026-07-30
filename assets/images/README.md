@@ -11,14 +11,16 @@
 | `og-image.jpg` | 1200×630 | 카카오톡·페이스북 공유 미리보기 | 교회 정면 (여름) |
 | `church-exterior.jpg` / `.webp` | 1024×768 | 교회 소개 페이지 | 교회 정면 (여름) |
 
-원본은 `gkc1.jpg`(외관·간판), `gkc2.jpg`(정면)입니다. 다시 만들어야 하면
-ImageMagick으로 처리했습니다:
+원본은 `_source/교회전경1.jpg`(외관·간판), `_source/교회전경2.jpg`(정면)입니다.
+`_source/`는 gitignore 대상이라 저장소에는 없고 로컬에만 있습니다. 다시
+만들어야 하면 ImageMagick으로 처리했습니다. `-strip`은 필수입니다 — EXIF에
+촬영 위치·기기 정보가 남아 있으면 그대로 공개 이미지에 딸려 나갑니다:
 
 ```bash
-magick gkc1.jpg -resize 1920x1080^ -gravity center -extent 1920x1080 -quality 82 hero-bg.jpg
-magick gkc1.jpg -resize 800x1200^  -gravity east   -extent 800x1200  -quality 82 hero-bg-mobile.jpg
-magick gkc2.jpg -resize 1200x630^  -gravity center -extent 1200x630  -quality 85 og-image.jpg
-magick gkc2.jpg -resize 1024x768 -quality 85 church-exterior.jpg
+magick _source/교회전경1.jpg -strip -resize 1920x1080^ -gravity center -extent 1920x1080 -quality 82 hero-bg.jpg
+magick _source/교회전경1.jpg -strip -resize 800x1200^  -gravity east   -extent 800x1200  -quality 82 hero-bg-mobile.jpg
+magick _source/교회전경2.jpg -strip -resize 1200x630^  -gravity center -extent 1200x630  -quality 85 og-image.jpg
+magick _source/교회전경2.jpg -strip -resize 1024x768 -quality 85 church-exterior.jpg
 cwebp -q 80 hero-bg.jpg -o hero-bg.webp   # 나머지도 동일
 ```
 
@@ -40,9 +42,9 @@ cwebp -q 80 hero-bg.jpg -o hero-bg.webp   # 나머지도 동일
 파비콘 3종은 로고 원본만 있으면 만들 수 있습니다:
 
 ```bash
-magick logo.png -resize 32x32 favicon-32x32.png
-magick logo.png -resize 16x16 favicon-16x16.png
-magick logo.png -resize 180x180 apple-touch-icon.png
+magick logo.png -strip -resize 32x32 favicon-32x32.png
+magick logo.png -strip -resize 16x16 favicon-16x16.png
+magick logo.png -strip -resize 180x180 apple-touch-icon.png
 ```
 
 ## 반영 방법

@@ -940,7 +940,7 @@ Expected: 위 5건 FAIL
 다음 줄을 삭제한다:
 
 ```html
-  <meta name="naver-site-verification" content="c51673d897229c805b54a1aa9c40381ce260949a" />
+  <meta name="naver-site-verification" content="<페낭 사이트의 네이버 소유권 확인 토큰>" />
 ```
 
 이 토큰은 페낭 사이트 소유권 증명용이라 새 사이트에서는 무의미하다.

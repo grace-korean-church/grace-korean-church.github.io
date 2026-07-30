@@ -31,8 +31,11 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Build site
-        run: bundle exec jekyll build --trace
+      # script/test가 내부적으로 bundle exec jekyll build를 실행해 _site를
+      # 만들고 검증까지 한다. 여기서 따로 빌드를 또 하면 이중 빌드로 시간을
+      # 낭비하거나, 검증 대상과 실제 배포물이 서로 다른 빌드가 될 수 있다.
+      - name: Build and test site
+        run: script/test
         env:
           JEKYLL_ENV: production
 

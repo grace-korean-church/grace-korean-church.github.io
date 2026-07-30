@@ -7,6 +7,7 @@
   --color-background: #f5f7fb;
   --color-surface: #ffffff;
   --color-primary: #1f4e79;
+  --color-primary-hover: #2f6ea8;
   --color-primary-soft: #e8f0f9;
   --color-text-main: #222222;
   --color-text-muted: #666666;
@@ -41,6 +42,7 @@
   --color-background: #1a1a1a;
   --color-surface: #2d2d2d;
   --color-primary: #4a86c5;
+  --color-primary-hover: #6ba3d8;
   --color-primary-soft: #1a3550;
   --color-text-main: #e8e8e8;
   --color-text-muted: #a8a8a8;
@@ -87,7 +89,7 @@ a {
 }
 
 a:hover {
-  color: #3a8ae0;
+  color: var(--color-primary-hover);
 }
 
 img {
@@ -406,7 +408,7 @@ img {
 }
 
 .btn-primary:hover {
-  background-color: #3a8ae0;
+  background-color: var(--color-primary-hover);
   color: var(--color-surface);
   transform: translateY(-2px);
   box-shadow: var(--shadow-medium);
@@ -1165,7 +1167,7 @@ img {
 }
 
 .address-text:hover {
-  background-color: rgba(79, 169, 255, 0.1);
+  background-color: rgba(31, 78, 121, 0.1);
 }
 
 /* 지도열기 링크 버튼 스타일 */
