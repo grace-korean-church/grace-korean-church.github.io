@@ -76,6 +76,9 @@ assert_built "about/index.html" "교회 소개 생성됨"
 assert_built "services/index.html" "예배 안내 생성됨"
 assert_built "visit/index.html" "찾아오시는 길 생성됨"
 assert_built "news/index.html" "소식 목록 생성됨"
+assert_built "news/2026/07/29/website-launch/index.html" "소식 글 생성됨"
+assert_contains "_site/news/index.html" "홈페이지를 열었습니다" "소식 목록에 글 노출됨"
+assert_contains "_site/index.html" "홈페이지를 열었습니다" "홈에 최근 소식 노출됨"
 
 section "사이트 설정"
 assert_contains "_site/index.html" "은혜한인교회" "교회명 출력됨"
@@ -125,6 +128,25 @@ if [ -z "$missing" ]; then
 else
   fail "존재하지 않는 이미지 참조:"
   printf '      %s\n' $missing
+fi
+
+section "내부 링크"
+broken=""
+# href="/..." 형태의 내부 링크만 추출 (외부 URL·앵커·mailto·tel 제외)
+for link in $(grep -rhoE 'href="/[^"#]*"' _site --include='*.html' \
+                | sed 's/href="//; s/"$//' | sort -u); do
+  case "$link" in
+    *.xml|*.txt|*.css|*.js|*.png|*.jpg|*.jpeg|*.webp|*.ico) target="_site$link" ;;
+    */) target="_site${link}index.html" ;;
+    *)  target="_site$link" ;;
+  esac
+  [ -e "$target" ] || broken="$broken $link"
+done
+if [ -z "$broken" ]; then
+  pass "깨진 내부 링크 없음"
+else
+  fail "깨진 내부 링크:"
+  printf '      %s\n' $broken
 fi
 
 printf '\n'
