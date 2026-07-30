@@ -57,9 +57,11 @@ alt_url: /en/
   <div class="container">
     <div class="text-center">
       <h2>처음 오시는 분께</h2>
-      <p>
+      <p class="lead-text">
         은혜한인교회는 처음 오시는 모든 분을 환영합니다.
         예약이나 사전 연락 없이 편하게 오셔서 함께 예배드리시면 됩니다.
+      </p>
+      <p class="lead-text">
         궁금한 점은 교회 <a href="{{ site.social.facebook }}" target="_blank" rel="noopener noreferrer">페이스북</a>으로 문의해 주세요.
       </p>
       <p>

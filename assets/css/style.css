@@ -71,6 +71,10 @@ body {
   color: var(--color-text-main);
   background-color: var(--color-background);
   line-height: 1.7;
+  /* 한글은 어절 단위로 끊어야 읽힌다. keep-all이 없으면 단어 중간에서
+     잘린다. 긴 URL 등은 break-word로 예외 처리. */
+  word-break: keep-all;
+  overflow-wrap: break-word;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -1834,4 +1838,20 @@ img {
   font-weight: 800;
   color: var(--color-primary);
   letter-spacing: -0.02em;
+}
+
+/* ==========================================================================
+   Lead text — 가운데 정렬 본문의 가독 폭 제한
+   ========================================================================== */
+
+/* 가운데 정렬된 긴 문장은 눈이 줄 시작을 찾기 어렵다. 한 줄이 너무
+   길어지지 않도록 폭을 묶는다. */
+.lead-text {
+  max-width: 34rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lead-text + .lead-text {
+  margin-top: var(--space-sm);
 }
