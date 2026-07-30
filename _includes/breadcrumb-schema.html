@@ -1,5 +1,5 @@
 <!-- BreadcrumbList Structured Data -->
-{% if page.url != "/" %}
+{% if page.url != "/" and page.url != "/en/" %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -8,31 +8,29 @@
     {
       "@type": "ListItem",
       "position": 1,
-      "name": "홈",
-      "item": "{{ site.url }}{{ site.baseurl }}/"
+      "name": "{% if page.lang == 'en' %}Home{% else %}홈{% endif %}",
+      "item": "{% if page.lang == 'en' %}{{ site.url }}{{ site.baseurl }}/en/{% else %}{{ site.url }}{{ site.baseurl }}/{% endif %}"
     }
-    {% if page.url contains '/pages/' %}
+    {% if page.url contains '/news/' and page.url != '/news/' %}
     ,{
       "@type": "ListItem",
       "position": 2,
-      "name": "{{ page.title }}",
-      "item": "{{ page.url | absolute_url }}"
-    }
-    {% elsif page.url contains '/news/' %}
-    ,{
-      "@type": "ListItem",
-      "position": 2,
-      "name": "소식 & 공지",
+      "name": "소식",
       "item": "{{ site.url }}{{ site.baseurl }}/news/"
     }
-    {% if page.title %}
     ,{
       "@type": "ListItem",
       "position": 3,
       "name": "{{ page.title }}",
       "item": "{{ page.url | absolute_url }}"
     }
-    {% endif %}
+    {% elsif page.title %}
+    ,{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ page.title }}",
+      "item": "{{ page.url | absolute_url }}"
+    }
     {% endif %}
   ]
 }

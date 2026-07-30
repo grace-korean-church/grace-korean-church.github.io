@@ -1,5 +1,35 @@
 <!-- FAQ Structured Data (JSON-LD) -->
-<!-- TODO: Task 6에서 은혜한인교회 FAQ로 채운다.
-     템플릿 원본의 FAQ에는 다른 교회의 은행 계좌번호와 예금주 실명이
-     들어 있어 복사하지 않았다. 이 저장소는 무료 GitHub Pages를 쓰기 위해
-     public이어야 하므로 히스토리에 남으면 안 된다. -->
+<!-- TODO: 예배 시간·연락처가 확정되면 아래 질문을 늘릴 것
+     (예: "예배 시간은 언제인가요?", "주차는 어떻게 하나요?") -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "{{ site.church.name }}은 어디에 있나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ site.church.name }}({{ site.church.name_en }})은 {{ site.church.address }}에 있습니다. 미국 일리노이주 몰린, Quad Cities 지역입니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "처음 방문해도 괜찮을까요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ site.church.name }}은 처음 오시는 모든 분을 환영합니다. 예약이나 사전 연락 없이 편하게 오시면 됩니다. 궁금한 점은 교회 페이스북 페이지로 문의하실 수 있습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "예배는 한국어로 드리나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ site.church.name }}은 한인 교회로 한국어로 예배를 드립니다. 영어권 방문자를 위한 안내는 홈페이지의 English 페이지에서 확인하실 수 있습니다."
+      }
+    }
+  ]
+}
+</script>

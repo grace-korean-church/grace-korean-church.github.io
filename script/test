@@ -94,6 +94,10 @@ assert_absent "_site/index.html" "analytics.js" "GA 미설정 시 이벤트 스�
 assert_contains "_site/index.html" '"addressCountry": "US"' "JSON-LD 국가 코드 US"
 assert_contains "_site/index.html" 'content="US-IL"' "geo.region US-IL"
 
+section "구조화 데이터"
+assert_contains "_site/index.html" '"@type": "FAQPage"' "FAQ 스키마 출력됨"
+assert_absent "_site/index.html" "/pages/" "구 URL 경로 없음"
+
 section "잔재 검사"
 assert_no_residue
 assert_no_account_numbers
