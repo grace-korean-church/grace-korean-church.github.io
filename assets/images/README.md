@@ -26,6 +26,10 @@
 - `_includes/footer.html` — 로고 텍스트 폴백 → `img` 태그
 - `_layouts/default.html` — 파비콘 링크, 히어로 preload
 - `assets/css/style.css` — `.hero-placeholder` 규칙 제거 후 `background-image` 복원
+- `_layouts/default.html`의 `<style>` 크리티컬 CSS — `.hero-fullscreen.hero-placeholder` 규칙이
+  `assets/css/style.css`와 동일하게 여기에도 (압축된 형태로) 들어있다. 두 곳을
+  같이 고치지 않으면 페이지가 배경 그라디언트로 먼저 그려졌다가 사진으로
+  바뀌는 깜빡임이 생긴다.
 - `index.md`, `en/index.md` — `hero-placeholder` 클래스 제거
 
 변경 후 `script/test` 를 실행해 깨진 참조가 없는지 확인하세요.

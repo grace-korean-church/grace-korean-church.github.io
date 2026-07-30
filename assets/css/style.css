@@ -1265,20 +1265,6 @@ img {
    Annual Theme Verse
    ========================================================================== */
 
-.annual-theme {
-  text-align: center;
-  padding: 3rem 2rem;
-  /* TODO: annual-theme-bg.webp 자산이 도착하면 배경 이미지를 복원할 것 */
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(224, 240, 255, 0.7) 100%);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(15, 30, 60, 0.1);
-  margin: 3rem 0;
-  position: relative;
-}
-
 .annual-theme-label {
   color: var(--color-text-main);
   font-size: 0.9rem;
@@ -1319,14 +1305,6 @@ img {
 }
 
 /* Dark Mode */
-[data-theme="dark"] .annual-theme {
-  background: linear-gradient(135deg, rgba(45, 45, 45, 0.65) 0%, rgba(30, 58, 82, 0.7) 100%);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
-
 [data-theme="dark"] .annual-theme-label,
 [data-theme="dark"] .annual-theme-title,
 [data-theme="dark"] .annual-theme-verse,
@@ -1336,15 +1314,6 @@ img {
 
 /* Mobile Optimizations */
 @media (max-width: 767px) {
-  .annual-theme {
-    padding: 2rem 1.5rem;
-    margin: 2rem 0;
-  }
-
-  [data-theme="dark"] .annual-theme {
-    background: linear-gradient(135deg, rgba(45, 45, 45, 0.65) 0%, rgba(30, 58, 82, 0.7) 100%);
-  }
-
   .annual-theme-title {
     font-size: 1.6rem;
   }
@@ -1436,14 +1405,6 @@ img {
   background-color: var(--color-background);
 }
 
-.section-dark {
-  /* TODO: cta-bg.webp 자산이 도착하면 배경 이미지를 복원할 것 */
-  background-color: var(--color-primary);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
 /* Two Column Layout */
 .two-column {
   display: grid;
@@ -1486,25 +1447,6 @@ img {
 }
 
 /* Annual Theme Home */
-.section-annual-theme {
-  /* TODO: annual-theme-bg.webp 자산이 도착하면 배경 이미지를 복원할 것 */
-  background-color: var(--color-primary);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.section-annual-theme .annual-theme-home .annual-theme-label,
-.section-annual-theme .annual-theme-home .annual-theme-title,
-.section-annual-theme .annual-theme-home .annual-theme-verse,
-.section-annual-theme .annual-theme-home .annual-theme-reference {
-  color: #ffffff;
-}
-
-.section-annual-theme .annual-theme-home .annual-theme-verse {
-  color: rgba(255, 255, 255, 0.9);
-}
-
 .annual-theme-home {
   text-align: center;
   max-width: 800px;

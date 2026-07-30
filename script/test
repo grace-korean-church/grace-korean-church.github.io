@@ -113,9 +113,12 @@ assert_no_residue
 assert_no_account_numbers
 
 section "이미지 참조"
+# 절대경로(/assets/images/foo.ext)와 CSS 상대경로(../images/foo.ext — assets/css/
+# 기준 assets/images/와 동일한 디렉토리를 가리킴) 두 형태 모두 잡는다.
 missing=""
-for ref in $(grep -rhoE '/assets/images/[A-Za-z0-9._-]+' _site --include='*.html' --include='*.css' | sort -u); do
-  [ -f "_site$ref" ] || missing="$missing $ref"
+for ref in $(grep -rhoE '(/assets/images/|\.\./images/)[A-Za-z0-9._-]+' _site --include='*.html' --include='*.css' | sort -u); do
+  file="${ref##*/}"
+  [ -f "_site/assets/images/$file" ] || missing="$missing $ref"
 done
 if [ -z "$missing" ]; then
   pass "깨진 이미지 참조 없음"
