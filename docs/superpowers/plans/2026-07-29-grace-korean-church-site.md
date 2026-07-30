@@ -1023,6 +1023,18 @@ Expected: 위 5건 FAIL
  * 은혜한인교회 웹사이트 사용자 동작 추적
 ```
 
+- [ ] **Step 13b: `analytics.js`의 다음카페 링크 처리 함수 제거**
+
+`assets/js/analytics.js`에는 `updateCafeLinksForMobile()` 함수가 있다. 모바일 브라우저에서 `https://cafe.daum.net/PenangChurch` 링크를 `m.cafe.daum.net` 주소로 바꿔주는 코드다. 새 사이트에는 다음카페 링크가 없으므로 죽은 코드이고, 페낭 잔재로 남아 Task 7의 잔재 검사가 통과하지 못하게 막는다.
+
+함수 정의 전체(위의 JSDoc 주석 포함)와 `initAnalytics()` 안의 호출부 두 곳을 삭제한다. `initAnalytics()`는 `document.readyState`에 따라 분기하므로 호출이 두 번 나올 수 있다 — 모두 지운다.
+
+삭제 후 확인:
+
+Run: `grep -ni 'daum\|cafe' assets/js/analytics.js`
+
+Expected: 출력 없음
+
 - [ ] **Step 14: 테스트 실행 — 통과 확인**
 
 Run: `script/test`
@@ -1097,14 +1109,15 @@ EOF
 ```bash
 section "구조화 데이터"
 assert_contains "_site/index.html" '"@type": "FAQPage"' "FAQ 스키마 출력됨"
-assert_absent "_site/index.html" "/pages/" "구 URL 경로 없음"
 ```
+
+`구 URL 경로 없음`(`/pages/` 부재) 검사는 여기 넣지 않는다. `index.md`가 아직 페낭 원본이고 그 히어로 버튼이 `/pages/services/`를 가리키므로, 이 태스크에서는 통과시킬 수 없다. `index.md`를 새로 쓰는 **Task 7에서 추가한다.**
 
 - [ ] **Step 2: 테스트 실행 — 실패 확인**
 
 Run: `script/test`
 
-Expected: `구 URL 경로 없음` FAIL
+Expected: `FAQ 스키마 출력됨` FAIL (현재 `faq-schema.html`은 스텁이라 JSON을 출력하지 않는다)
 
 - [ ] **Step 3: `_includes/navigation-schema.html` 전체 교체**
 
@@ -1305,6 +1318,12 @@ assert_built "about/index.html" "교회 소개 생성됨"
 assert_built "services/index.html" "예배 안내 생성됨"
 assert_built "visit/index.html" "찾아오시는 길 생성됨"
 assert_built "news/index.html" "소식 목록 생성됨"
+```
+
+그리고 `section "구조화 데이터"` 블록에 다음 한 줄을 추가한다 (Task 6에서 이리로 옮겨온 검사다 — `index.md`가 새로 쓰이는 이 태스크에서야 통과할 수 있다):
+
+```bash
+assert_absent "_site/index.html" "/pages/" "구 URL 경로 없음"
 ```
 
 - [ ] **Step 2: 테스트 실행 — 실패 확인**
