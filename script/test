@@ -97,6 +97,12 @@ assert_absent "_site/index.html" "googletagmanager" "GA 미설정 시 스크립�
 assert_absent "_site/index.html" "analytics.js" "GA 미설정 시 이벤트 스크립트 미출력"
 assert_contains "_site/index.html" '"addressCountry": "US"' "JSON-LD 국가 코드 US"
 assert_contains "_site/index.html" 'content="US-IL"' "geo.region US-IL"
+assert_built "en/index.html" "영어 홈 생성됨"
+assert_built "en/about/index.html" "영어 소개 생성됨"
+assert_contains "_site/en/index.html" '<html lang="en">' "영어 페이지 lang 속성"
+assert_contains "_site/en/index.html" ">Home<" "영어 네비게이션 출력됨"
+assert_contains "_site/index.html" 'hreflang="en"' "한국어 홈에 hreflang 링크"
+assert_contains "_site/en/index.html" 'hreflang="ko"' "영어 홈에 hreflang 링크"
 
 section "구조화 데이터"
 assert_contains "_site/index.html" '"@type": "FAQPage"' "FAQ 스키마 출력됨"
