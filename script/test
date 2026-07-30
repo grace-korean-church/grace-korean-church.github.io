@@ -112,6 +112,18 @@ section "잔재 검사"
 assert_no_residue
 assert_no_account_numbers
 
+section "이미지 참조"
+missing=""
+for ref in $(grep -rhoE '/assets/images/[A-Za-z0-9._-]+' _site --include='*.html' --include='*.css' | sort -u); do
+  [ -f "_site$ref" ] || missing="$missing $ref"
+done
+if [ -z "$missing" ]; then
+  pass "깨진 이미지 참조 없음"
+else
+  fail "존재하지 않는 이미지 참조:"
+  printf '      %s\n' $missing
+fi
+
 printf '\n'
 if [ "$FAILED" -eq 0 ]; then
   printf '%s모든 검증 통과%s\n' "$GREEN" "$RESET"

@@ -15,19 +15,10 @@
   <div class="container header-inner">
     <div class="site-logo">
       <a href="{{ home_url | relative_url }}" aria-label="{{ site.church.name }}">
-        <img src="{{ '/assets/images/logo-text-color.png' | relative_url }}"
-             alt="{{ site.church.name }}"
-             class="site-logo-img site-logo-light"
-             width="800" height="198"
-             loading="eager"
-             decoding="async">
-        <img src="{{ '/assets/images/logo-text-white.png' | relative_url }}"
-             alt=""
-             class="site-logo-img site-logo-dark"
-             width="800" height="198"
-             loading="eager"
-             decoding="async"
-             aria-hidden="true">
+        <!-- TODO: 로고 파일(logo-text-color.png / logo-text-white.png)이 도착하면
+             아래 텍스트 폴백을 지우고 img 태그로 교체할 것.
+             다크모드 전환은 .site-logo-light / .site-logo-dark 클래스가 처리한다. -->
+        <span class="site-logo-fallback">{{ site.church.name }}</span>
       </a>
     </div>
 

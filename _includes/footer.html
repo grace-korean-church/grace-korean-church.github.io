@@ -4,21 +4,8 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-info">
-      <div class="footer-logo">
-        <img src="{{ '/assets/images/logo-text-color.png' | relative_url }}"
-             alt="{{ site.church.name }}"
-             class="footer-logo-img footer-logo-light"
-             width="800" height="198"
-             loading="lazy"
-             decoding="async">
-        <img src="{{ '/assets/images/logo-text-white.png' | relative_url }}"
-             alt=""
-             class="footer-logo-img footer-logo-dark"
-             width="800" height="198"
-             loading="lazy"
-             decoding="async"
-             aria-hidden="true">
-      </div>
+      <!-- TODO: 로고 파일이 도착하면 img 태그로 교체할 것 -->
+      <p class="footer-logo"><strong>{{ site.church.name }}</strong> ({{ site.church.name_en }})</p>
       <p class="footer-address">
         <strong>{{ t.footer.address }}:</strong>
         <span class="address-text">{{ site.church.address }}</span>
