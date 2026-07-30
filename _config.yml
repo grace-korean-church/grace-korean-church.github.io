@@ -17,11 +17,11 @@ lang: "ko"
 church:
   name: "은혜한인교회"
   name_en: "Grace Korean Church"
-  # TODO: 번지수 불일치 확인 필요. 홈 히어로 배경 사진(assets/images/hero-bg.jpg)
-  # 속 교회 간판에는 4815로 보이나, 이 사이트 전체와 구글 지도 단축 링크(map_url)의
-  # 기록은 4915로 되어 있다. 지도 링크가 정상 작동하므로 4915를 유지하되,
-  # 교회에 실제 번지수를 확인받아야 한다.
-  address: "4915 21st Ave A, Moline, IL 61265, USA"
+  # 번지수는 교회 간판 표기(4815)를 따른다. 구글 지도 등록 정보는 4915로
+  # 되어 있어 서로 어긋나지만, 간판이 교회 자신의 표기다.
+  # 지도 임베드는 번지수 대신 교회 이름으로 조회하므로, 둘 중 어느 쪽이
+  # 틀렸든 방문자가 엉뚱한 건물로 가지 않는다.
+  address: "4815 21st Ave A, Moline, IL 61265, USA"
   address_locality: "Moline"
   address_region: "IL"
   postal_code: "61265"

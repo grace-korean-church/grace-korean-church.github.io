@@ -126,8 +126,5 @@ grep -rn "TODO" --include="*.md" --include="*.html" --include="*.yml" . \
 - 로고 · 파비콘 · 담임목사 사진 (현재 상태는 `assets/images/README.md` 참고)
 - 정확한 교회 좌표
 - Google Analytics 측정 ID (`_config.yml` 의 `google_analytics`)
-- 주소 번지수 확인 (`_config.yml` 은 4915를 쓰고 있으나 히어로 배경 사진 속
-  교회 간판은 4815로 보임 — 구글 지도 단축 링크 기록이 4915라 그대로 두었지만
-  교회 확인 필요)
 
 교단은 하나님의성회(Assembly of God)로 확인되어 `about.md` 에 반영했습니다.

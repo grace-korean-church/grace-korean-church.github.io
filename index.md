@@ -39,7 +39,7 @@ alt_url: /en/
       <div class="column-map">
         <iframe
           title="은혜한인교회 위치 - Google Maps"
-          src="https://www.google.com/maps?q=4915%2021st%20Ave%20A,%20Moline,%20IL%2061265&output=embed"
+          src="https://www.google.com/maps?q=Grace+Korean+Church,+21st+Ave+A,+Moline,+IL+61265&output=embed"
           width="100%"
           height="350"
           style="border:0; border-radius: 12px;"

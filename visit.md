@@ -2,7 +2,7 @@
 layout: page
 title: "찾아오시는 길"
 subtitle: "은혜한인교회 위치를 안내합니다"
-description: "은혜한인교회 위치와 오시는 길. 4915 21st Ave A, Moline, IL 61265"
+description: "은혜한인교회 위치와 오시는 길. 4815 21st Ave A, Moline, IL 61265"
 keywords: "은혜한인교회 위치, 몰린 한인교회 주소, Moline Korean church, Quad Cities 한인교회 오시는 길"
 permalink: /visit/
 ---
@@ -16,7 +16,7 @@ permalink: /visit/
 <div class="map-container">
   <iframe
     title="은혜한인교회 위치 - Google Maps"
-    src="https://www.google.com/maps?q=4915%2021st%20Ave%20A,%20Moline,%20IL%2061265&output=embed"
+    src="https://www.google.com/maps?q=Grace+Korean+Church,+21st+Ave+A,+Moline,+IL+61265&output=embed"
     width="100%"
     height="420"
     style="border:0; border-radius: 12px;"
