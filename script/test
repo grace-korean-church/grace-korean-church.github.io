@@ -88,6 +88,11 @@ assert_absent "_site/index.html" "#4fa9ff" "크리티컬 CSS에 페낭 하늘색
 section "이중 언어"
 assert_contains "_site/index.html" 'href="/en/"' "한국어 페이지에 EN 토글 있음"
 assert_contains "_site/index.html" ">홈<" "한국어 네비게이션 출력됨"
+assert_contains "_site/index.html" '<html lang="ko">' "한국어 페이지 lang 속성"
+assert_absent "_site/index.html" "googletagmanager" "GA 미설정 시 스크립트 미출력"
+assert_absent "_site/index.html" "analytics.js" "GA 미설정 시 이벤트 스크립트 미출력"
+assert_contains "_site/index.html" '"addressCountry": "US"' "JSON-LD 국가 코드 US"
+assert_contains "_site/index.html" 'content="US-IL"' "geo.region US-IL"
 
 section "잔재 검사"
 assert_no_residue

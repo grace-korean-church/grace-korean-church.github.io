@@ -1,6 +1,6 @@
 /**
  * Google Analytics Event Tracking
- * 페낭한인교회 웹사이트 사용자 동작 추적
+ * 은혜한인교회 웹사이트 사용자 동작 추적
  */
 
 (function() {
