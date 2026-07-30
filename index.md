@@ -53,7 +53,7 @@ alt_url: /en/
 </section>
 
 <!-- Intro Section -->
-<section class="section-fullwidth">
+<section class="section-fullwidth section-photo section-photo-congregation">
   <div class="container">
     <div class="text-center">
       <h2>처음 오시는 분께</h2>

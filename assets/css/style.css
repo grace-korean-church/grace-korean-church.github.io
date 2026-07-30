@@ -1855,3 +1855,74 @@ img {
 .lead-text + .lead-text {
   margin-top: var(--space-sm);
 }
+
+/* ==========================================================================
+   Photo-backed section
+   ========================================================================== */
+
+/* 사진 위에 텍스트를 올리는 섹션. 오버레이를 충분히 어둡게 깔아
+   흰 글씨의 대비를 확보한다. 사진이 안 뜨는 동안에도 배경색이
+   깔려 있어 글씨가 사라지지 않는다. */
+.section-photo {
+  position: relative;
+  background-color: #16324f;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 위쪽은 진하게(글씨가 놓이는 자리), 아래로 갈수록 옅게.
+   텍스트 대비를 확보하면서 아래쪽 사진은 살려둔다. */
+.section-photo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 25, 45, 0.88) 0%,
+    rgba(10, 25, 45, 0.78) 45%,
+    rgba(10, 25, 45, 0.45) 100%
+  );
+}
+
+.section-photo > * {
+  position: relative;
+  z-index: 1;
+}
+
+.section-photo h2,
+.section-photo p {
+  color: #fff;
+}
+
+.section-photo a:not(.btn) {
+  color: #cfe3f7;
+  text-decoration: underline;
+}
+
+/* 사진 위에서는 테두리 버튼을 흰색으로 */
+.section-photo .btn-outline {
+  border-color: rgba(255, 255, 255, 0.85);
+  color: #fff;
+}
+
+.section-photo .btn-outline:hover {
+  background-color: #fff;
+  color: var(--color-primary);
+}
+
+.section-photo-congregation {
+  background-image: url('../images/congregation.webp');
+  /* 사람들이 아래쪽 밝은 영역에 오도록 */
+  background-position: center 30%;
+  padding-bottom: 8rem;
+}
+
+@media (max-width: 767px) {
+  .section-photo-congregation {
+    background-image: url('../images/congregation-mobile.webp');
+    background-position: center 35%;
+    /* 데스크톱만큼 아래 여백을 두면 빈 공간이 크게 남는다 */
+    padding-bottom: 5rem;
+  }
+}
