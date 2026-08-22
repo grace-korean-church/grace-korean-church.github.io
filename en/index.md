@@ -31,7 +31,12 @@ alt_url: /
       arrived, you are welcome to join us.
     </p>
 
-    <p><strong>Please note:</strong> our services are held in Korean.</p>
+    <p>
+      <strong>Please note:</strong> our services are held in Korean,
+      <strong>with English interpretation provided</strong>. We also hold an
+      English Bible study on Wednesday mornings. If you do not speak Korean,
+      you are still very welcome to join us.
+    </p>
 
     <h2>Service Times</h2>
 
