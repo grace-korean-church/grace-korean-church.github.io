@@ -11,7 +11,10 @@
         <span class="address-text">{{ site.church.address }}</span>
         <a href="{{ site.church.map_url }}" target="_blank" rel="noopener noreferrer" class="map-link">{{ t.footer.map }}</a><br>
         {%- if site.church.phone != "" %}
-        <strong>{{ t.footer.phone }}:</strong> <a href="tel:{{ site.church.phone }}">{{ site.church.phone }}</a><br>
+        <strong>{{ t.footer.phone }}:</strong> <a href="tel:+1{{ site.church.phone | remove: "-" }}">{{ site.church.phone }}</a><br>
+        {%- endif %}
+        {%- if site.church.mobile != "" %}
+        <strong>{{ t.footer.mobile }}:</strong> <a href="tel:+1{{ site.church.mobile | remove: "-" }}">{{ site.church.mobile }}</a><br>
         {%- endif %}
         {%- if site.church.email != "" %}
         <strong>{{ t.footer.email }}:</strong> <a href="mailto:{{ site.church.email }}">{{ site.church.email }}</a><br>

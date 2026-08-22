@@ -1,11 +1,21 @@
 # Site settings
 title: "은혜한인교회 (Grace Korean Church)"
-description: "미국 일리노이주 몰린(Quad Cities)에서 함께 예배하는 한인 교회입니다"
+description: "사랑하며 섬기며 복음을 전하는 교회. 미국 일리노이주 몰린(Quad Cities)의 한인 교회, 1982년 설립"
 url: "https://grace-korean-church.github.io"
 baseurl: ""
-pastor: "오규섭 목사"
-# TODO: 설립 연도 확인 후 채울 것. 채우면 JSON-LD에 foundingDate가 출력된다.
-established: ""
+pastor: "오기윤 목사"
+pastor_en: "Rev. Ki Yoon Oh"
+# 주보 표기: Est. Aug. 15th, 1982
+established: "1982-08-15"
+established_year: 1982
+
+# 교단 (주보 로고·명칭 표기 기준)
+denomination: "하나님의성회"
+denomination_en: "Assemblies of God"
+
+# 교회 표어
+motto: "사랑하며 섬기며 복음을 전하는 교회"
+motto_en: "A church that loves, serves, and proclaims the gospel"
 
 # SEO settings
 author: "은혜한인교회"
@@ -30,10 +40,9 @@ church:
   # TODO: 몰린 시 기준 근사 좌표. 교회 건물 정확한 좌표로 교체할 것
   latitude: "41.5067"
   longitude: "-90.5151"
-  # TODO: 대표 전화번호 확인 후 채울 것. 비어 있으면 푸터에 표시되지 않는다.
-  phone: ""
-  # TODO: 대표 이메일 확인 후 채울 것. 비어 있으면 푸터에 표시되지 않는다.
-  email: ""
+  phone: "309-764-3550"
+  mobile: "309-206-3500"
+  email: "gkc.moline@gmail.com"
 
 # Social media
 social:

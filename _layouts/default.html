@@ -68,6 +68,30 @@
     {% if site.church.phone != "" %}"telephone": "{{ site.church.phone }}",{% endif %}
     {% if site.church.email != "" %}"email": "{{ site.church.email }}",{% endif %}
     {% if site.established != "" %}"foundingDate": "{{ site.established }}",{% endif %}
+    "slogan": "{{ site.motto }}",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Sunday",
+        "opens": "10:30",
+        "closes": "12:00",
+        "description": "주일 예배 / Sunday Worship Service"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Wednesday",
+        "opens": "19:00",
+        "closes": "20:00",
+        "description": "수요 성경공부 / Wednesday Bible Study"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Friday",
+        "opens": "19:00",
+        "closes": "20:00",
+        "description": "금요 기도회 / Friday Prayer Meeting"
+      }
+    ],
     "description": "{{ site.description }}",
     "sameAs": [
       {%- assign links = "" | split: "" -%}

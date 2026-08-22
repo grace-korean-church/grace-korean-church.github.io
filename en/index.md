@@ -12,7 +12,7 @@ alt_url: /
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1 class="hero-title">Grace Korean Church</h1>
-    <p class="hero-tagline">은혜한인교회</p>
+    <p class="hero-tagline">A church that loves, serves, and proclaims the gospel</p>
     <p class="hero-text">A Korean-speaking congregation in Moline, Illinois</p>
     <div class="hero-actions">
       <a href="{{ site.church.map_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-hero-primary">Get Directions</a>
@@ -35,11 +35,19 @@ alt_url: /
 
     <h2>Service Times</h2>
 
-    <!-- TODO: Replace with confirmed service times once the church provides them. -->
+    <table>
+      <tr><th>The Lord's Day</th><th></th></tr>
+      <tr><td>Worship Service</td><td>10:30 AM</td></tr>
+      <tr><td>Sunday School</td><td>10:30 AM</td></tr>
+      <tr><th>Weekday</th><th></th></tr>
+      <tr><td>Wed. Bible Study</td><td>10:00 AM &middot; 7:00 PM</td></tr>
+      <tr><td>Wed. English Bible Study</td><td>10:00 AM</td></tr>
+      <tr><td>Fri. Prayer Meeting</td><td>7:00 PM</td></tr>
+    </table>
+
     <p>
-      Current service times are announced on our
-      <a href="{{ site.social.facebook }}" target="_blank" rel="noopener noreferrer">Facebook page</a>.
-      Please check there before visiting. Past services are available on our
+      Sunday worship is held in Korean with English interpretation. There is also a
+      separate English Bible study on Wednesday mornings. Past services are available on our
       <a href="{{ site.social.youtube }}" target="_blank" rel="noopener noreferrer">YouTube channel</a>.
     </p>
 
@@ -66,11 +74,10 @@ alt_url: /
     <h2>Contact</h2>
 
     <p>
-      The quickest way to reach us is through our
+      Phone: <a href="tel:+1{{ site.church.phone | remove: "-" }}">{{ site.church.phone }}</a><br>
+      Email: <a href="mailto:{{ site.church.email }}">{{ site.church.email }}</a><br>
+      You can also reach us through our
       <a href="{{ site.social.facebook }}" target="_blank" rel="noopener noreferrer">Facebook page</a>.
-      {% if site.church.phone != "" %}
-      You can also call us at <a href="tel:{{ site.church.phone }}">{{ site.church.phone }}</a>.
-      {% endif %}
     </p>
 
     <p>

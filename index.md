@@ -13,9 +13,9 @@ alt_url: /en/
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1 class="hero-title">은혜한인교회</h1>
-    <p class="hero-tagline">Grace Korean Church</p>
+    <p class="hero-tagline">사랑하며 섬기며 복음을 전하는 교회</p>
     <p class="hero-text">몰린과 Quad Cities에서 함께 예배하는 한인 교회입니다</p>
-    <!-- TODO: 예배 시간이 확정되면 여기에 "주일예배 오전 OO시" 문구를 추가할 것 -->
+    <p class="hero-time">주일예배 오전 10시 30분</p>
     <div class="hero-actions">
       <a href="{{ '/services/' | relative_url }}" class="btn btn-hero-primary">예배 안내</a>
       <a href="{{ '/visit/' | relative_url }}" class="btn btn-hero-outline" style="border: 2px solid #fff; color: #fff;">오시는 길</a>
@@ -28,7 +28,7 @@ alt_url: /en/
   <div class="container">
     <div class="two-column location-grid">
       <div class="column-info-lifehouse">
-        <h2 class="location-time">함께 드리는 예배</h2>
+        <h2 class="location-time">주일 오전 10시 30분</h2>
         <p class="location-address">
           <span class="address-text">{{ site.church.address }}</span>
         </p>

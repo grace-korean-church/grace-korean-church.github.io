@@ -12,6 +12,7 @@ ko:
   footer:
     address: "주소"
     phone: "전화"
+    mobile: "휴대전화"
     email: "이메일"
     pastor: "담임목사"
     map: "지도 열기"
@@ -33,6 +34,7 @@ en:
   footer:
     address: "Address"
     phone: "Phone"
+    mobile: "Mobile"
     email: "Email"
     pastor: "Senior Pastor"
     map: "Open in Maps"
