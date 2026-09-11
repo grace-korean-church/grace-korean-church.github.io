@@ -135,6 +135,14 @@ assert_contains "_site/en/videos/index.html" "Sunday Worship" "영어 날짜 제
 assert_contains "_site/videos/index.html" "2026년 9월 6일" "시카고 기준 예배 날짜(일요일)"
 assert_absent "_site/videos/index.html" "youtube.com/embed" "재생 전 iframe 없음"
 assert_contains "_site/videos/index.html" "/assets/js/videos.js" "영상 페이지에 재생 스크립트"
+# 전체 CSS는 비동기로 뒤늦게 도착하므로, 격자·썸네일 규칙이 인라인 크리티컬 CSS에
+# 없으면 썸네일이 세로로 쌓였다가 격자로 재배치되는 화면 흔들림이 생긴다.
+critical_css=$(sed -n '/<style>/,/<\/style>/p' _site/videos/index.html)
+if printf '%s' "$critical_css" | grep -qF '.video-thumb{' && printf '%s' "$critical_css" | grep -qF '.card-grid{'; then
+  pass "크리티컬 CSS에 영상 격자·썸네일 규칙 포함"
+else
+  fail "크리티컬 CSS에 영상 격자·썸네일 규칙 없음 (첫 화면 재배치 발생)"
+fi
 assert_absent "_site/index.html" "/assets/js/videos.js" "홈에는 재생 스크립트 없음"
 assert_contains "_site/index.html" ">예배 영상<" "한국어 메뉴에 예배 영상"
 assert_contains "_site/en/index.html" ">Videos<" "영어 메뉴에 Videos"
