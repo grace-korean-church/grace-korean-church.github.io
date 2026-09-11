@@ -2,10 +2,14 @@
 layout: null
 ---
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <!-- Homepage -->
   <url>
     <loc>{{ site.url }}{{ site.baseurl }}/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="{{ '/' | absolute_url }}"/>
+    <xhtml:link rel="alternate" hreflang="en" href="{{ '/en/' | absolute_url }}"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="{{ '/' | absolute_url }}"/>
     <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -16,6 +20,15 @@ layout: null
     {% unless page.sitemap == false or page.url contains '/404.html' or page.url contains '/assets/' or page.url == '/' or page.url contains 'feed.xml' or page.url contains 'sitemap.xml' or page.url contains 'robots.txt' or page.url contains 'llms.txt' %}
     <url>
       <loc>{{ site.url }}{{ site.baseurl }}{{ page.url }}</loc>
+      {%- comment -%}
+        한/영 대응 페이지(alt_url)는 언어 대응을 함께 적는다. HTML <link hreflang>과 같은
+        front matter에서 만들어지므로 둘이 어긋나지 않는다. 자기 자신도 포함해야 한다.
+      {%- endcomment %}
+      {%- if page.alt_url %}
+      <xhtml:link rel="alternate" hreflang="{{ page.lang | default: 'ko' }}" href="{{ page.url | absolute_url }}"/>
+      <xhtml:link rel="alternate" hreflang="{{ page.alt_lang }}" href="{{ page.alt_url | absolute_url }}"/>
+      <xhtml:link rel="alternate" hreflang="x-default" href="{{ '/' | absolute_url }}"/>
+      {%- endif %}
       {%- comment -%} 빌드 시각을 lastmod로 쓰면 매 배포마다 전부 바뀐 것으로 보여 신호가 무의미해진다. 실제 수정일이 있을 때만 쓴다. {%- endcomment %}
       {% if page.last_modified_at %}<lastmod>{{ page.last_modified_at | date_to_xmlschema }}</lastmod>{% endif %}
       <changefreq>monthly</changefreq>

@@ -167,6 +167,13 @@ assert_contains "_site/llms.txt" "Moline" "llms.txt에 주소"
 assert_contains "_site/llms.txt" "/videos/" "llms.txt에 영상 페이지"
 assert_absent "_site/sitemap.xml" "llms.txt" "sitemap에 llms.txt 없음"
 assert_contains "_site/robots.txt" "GPTBot" "robots.txt에 AI 크롤러 명시"
+assert_contains "_site/sitemap.xml" 'xmlns:xhtml="http://www.w3.org/1999/xhtml"' "sitemap xhtml 네임스페이스"
+assert_contains "_site/sitemap.xml" '<xhtml:link rel="alternate" hreflang="en" href="https://grace-korean-church.github.io/en/videos/"/>' "sitemap에 영상 페이지 언어 대응"
+# 대응 페이지가 있는 URL마다 자기 자신·상대 언어·x-default 세 줄이 있어야 한다
+alt_urls=$(grep -c '<xhtml:link' _site/sitemap.xml)
+paired=$(grep -l '^alt_url:' index.md en/index.md about.md en/about.md videos.html en/videos.html 2>/dev/null | wc -l | tr -d ' ')
+if [ "$alt_urls" = "$((paired * 3))" ]; then pass "sitemap 언어 대응 줄 수 일치 (${paired}쪽 × 3)"; else fail "sitemap 언어 대응 줄 수: $alt_urls (기대 $((paired * 3)))"; fi
+if xmllint --noout _site/sitemap.xml 2>/dev/null; then pass "sitemap XML 문법"; else fail "sitemap XML 문법 오류"; fi
 assert_absent "_site/index.html" "google-site-verification" "인증 미설정 시 메타 미출력"
 assert_contains "_site/videos/index.html" '"@type": "VideoObject"' "영상 페이지 VideoObject"
 assert_contains "_site/news/2026/07/29/website-launch/index.html" '"@type": "NewsArticle"' "소식 글 NewsArticle"
