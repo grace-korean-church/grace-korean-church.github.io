@@ -13,6 +13,10 @@
 # - 새 영상이 없으면 파일을 다시 쓰지 않는다 (불필요한 커밋 방지).
 # - 피드를 못 읽으면 기존 파일을 그대로 두고 1로 종료한다.
 #
+# 유튜브 피드 서버는 같은 요청에 200·404·500을 무작위로 돌려준다(2026-09
+# 확인: 집에서도 GitHub 러너에서도 재현). 그래서 채널 피드와 업로드 재생목록
+# 피드 두 주소를 번갈아 여러 번 시도하고, 정상 Atom 문서를 받은 첫 응답을 쓴다.
+#
 # 표준 라이브러리만 쓴다. Jekyll 때문에 Ruby가 이미 있으므로 gem을 늘리지 않는다.
 
 require "net/http"
@@ -22,8 +26,16 @@ require "json"
 require "optparse"
 
 CHANNEL_ID = "UCnheEKAjecPzdQpjWYPw37A"
-DEFAULT_FEED = "https://www.youtube.com/feeds/videos.xml?channel_id=#{CHANNEL_ID}"
+# 업로드 재생목록 ID는 채널 ID의 앞 두 글자 UC를 UU로 바꾼 것이다.
+UPLOADS_ID = CHANNEL_ID.sub(/\AUC/, "UU")
+DEFAULT_FEEDS = [
+  "https://www.youtube.com/feeds/videos.xml?channel_id=#{CHANNEL_ID}",
+  "https://www.youtube.com/feeds/videos.xml?playlist_id=#{UPLOADS_ID}"
+].freeze
 DEFAULT_OUT = File.expand_path("../_data/videos.yml", __dir__)
+ATTEMPTS = 6          # 회차 수. 회차마다 두 주소를 모두 시도한다
+RETRY_WAIT = 10       # 초. 회차마다 두 배로 늘린다 (10, 20, 40, 80, 160 → 약 5분)
+HTTP_TIMEOUT = 20     # 초. 연결·응답 각각
 
 HEADER = <<~YAML
   # 유튜브 채널 영상 목록. script/fetch-videos가 자동으로 채운다.
@@ -31,19 +43,43 @@ HEADER = <<~YAML
   # 채널에서 내린 영상은 여기서 손으로 지운다.
 YAML
 
-options = { feed: DEFAULT_FEED, out: DEFAULT_OUT }
+options = { feeds: DEFAULT_FEEDS, out: DEFAULT_OUT }
 OptionParser.new do |o|
-  o.on("--feed SRC", "피드 URL 또는 파일 경로") { |v| options[:feed] = v }
+  o.on("--feed SRC", "피드 URL 또는 파일 경로 (기본: 채널·재생목록 피드 순서로 시도)") { |v| options[:feeds] = [v] }
   o.on("--out PATH", "출력 YAML 경로") { |v| options[:out] = v }
 end.parse!
 
 def read_feed(src)
   return File.read(src) unless src.start_with?("http://", "https://")
 
-  res = Net::HTTP.get_response(URI(src))
+  uri = URI(src)
+  res = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https",
+                        open_timeout: HTTP_TIMEOUT, read_timeout: HTTP_TIMEOUT) do |http|
+    http.get(uri.request_uri, "User-Agent" => "Mozilla/5.0 (compatible; grace-korean-church-site)")
+  end
   raise "HTTP #{res.code}" unless res.is_a?(Net::HTTPSuccess)
 
   res.body
+end
+
+# 여러 출처를 여러 번 시도해 처음 정상 파싱되는 피드를 돌려준다.
+# 로컬 파일은 재시도 없이 한 번만 읽는다.
+def fetch_entries(sources)
+  errors = []
+  ATTEMPTS.times do |attempt|
+    sources.each do |src|
+      return [parse_feed(read_feed(src)), errors]
+    rescue StandardError => e
+      errors << "#{src}: #{e.message}"
+      return nil, errors unless src.start_with?("http://", "https://")
+    end
+    next if attempt == ATTEMPTS - 1
+
+    wait = RETRY_WAIT * (2**attempt)
+    warn "fetch-videos: attempt #{attempt + 1}/#{ATTEMPTS} failed, retrying in #{wait}s"
+    sleep(wait)
+  end
+  [nil, errors]
 end
 
 def parse_feed(xml)
@@ -80,8 +116,14 @@ def to_yaml(videos)
   HEADER + body
 end
 
+fetched, errors = fetch_entries(options[:feeds])
+if fetched.nil?
+  warn "fetch-videos: could not read feed"
+  errors.each { |e| warn "  #{e}" }
+  exit 1
+end
+
 begin
-  fetched = parse_feed(read_feed(options[:feed]))
   existing = load_existing(options[:out])
 rescue StandardError => e
   warn "fetch-videos: #{e.message}"
