@@ -173,7 +173,8 @@ assert_contains "_site/sitemap.xml" '<xhtml:link rel="alternate" hreflang="en" h
 alt_urls=$(grep -c '<xhtml:link' _site/sitemap.xml)
 paired=$(grep -l '^alt_url:' index.md en/index.md about.md en/about.md videos.html en/videos.html 2>/dev/null | wc -l | tr -d ' ')
 if [ "$alt_urls" = "$((paired * 3))" ]; then pass "sitemap 언어 대응 줄 수 일치 (${paired}쪽 × 3)"; else fail "sitemap 언어 대응 줄 수: $alt_urls (기대 $((paired * 3)))"; fi
-if xmllint --noout _site/sitemap.xml 2>/dev/null; then pass "sitemap XML 문법"; else fail "sitemap XML 문법 오류"; fi
+# xmllint는 CI 러너에 없으므로 Ruby 표준 라이브러리로 파싱한다
+if bundle exec ruby -rrexml/document -e 'REXML::Document.new(File.read("_site/sitemap.xml"))' 2>/dev/null; then pass "sitemap XML 문법"; else fail "sitemap XML 문법 오류"; fi
 assert_absent "_site/index.html" "google-site-verification" "인증 미설정 시 메타 미출력"
 assert_contains "_site/videos/index.html" '"@type": "VideoObject"' "영상 페이지 VideoObject"
 assert_contains "_site/news/2026/07/29/website-launch/index.html" '"@type": "NewsArticle"' "소식 글 NewsArticle"
