@@ -2,6 +2,23 @@
 layout: default
 ---
 
+<!-- 소식 글 구조화 데이터: 게시일·수정일을 검색 엔진에 전달한다 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": {{ page.title | jsonify }},
+  "description": {{ page.summary | default: page.excerpt | strip_html | strip | jsonify }},
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+  "inLanguage": "ko",
+  "mainEntityOfPage": "{{ page.url | absolute_url }}",
+  "author": { "@id": "{{ site.url }}{{ site.baseurl }}/#church" },
+  "publisher": { "@id": "{{ site.url }}{{ site.baseurl }}/#church" },
+  "image": "{{ page.image | default: '/assets/images/og-image.jpg' | absolute_url }}"
+}
+</script>
+
 <div class="container post-container">
   <article class="post">
     <header class="post-header">

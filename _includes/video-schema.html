@@ -1,0 +1,42 @@
+{%- comment -%}
+  예배 영상 목록 구조화 데이터. include 인자 lang(ko|en).
+  날짜 제목 규칙은 videos.html과 같다: 제목에 worship이 있으면 날짜 제목, 아니면 원제목.
+{%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": {% if include.lang == 'en' %}"Worship Videos"{% else %}"예배 영상"{% endif %},
+  "itemListElement": [
+    {%- for v in site.data.videos %}
+    {%- assign epoch = v.published | date: "%s" | plus: 0 -%}
+    {%- if include.lang == 'en' -%}
+      {%- assign day = epoch | date: "%B %-d, %Y" -%}
+    {%- else -%}
+      {%- assign day = epoch | date: "%Y년 %-m월 %-d일" -%}
+    {%- endif -%}
+    {%- assign lower = v.title | downcase -%}
+    {%- if lower contains "worship" -%}
+      {%- if include.lang == 'en' -%}{%- capture name -%}Sunday Worship · {{ day }}{%- endcapture -%}{%- else -%}{%- capture name -%}{{ day }} 주일 예배{%- endcapture -%}{%- endif -%}
+    {%- else -%}
+      {%- assign name = v.title -%}
+    {%- endif %}
+    {
+      "@type": "ListItem",
+      "position": {{ forloop.index }},
+      "item": {
+        "@type": "VideoObject",
+        "name": {{ name | jsonify }},
+        "description": {{ v.title | jsonify }},
+        "thumbnailUrl": "https://i.ytimg.com/vi/{{ v.id }}/hqdefault.jpg",
+        "uploadDate": "{{ v.published }}",
+        "embedUrl": "https://www.youtube-nocookie.com/embed/{{ v.id }}",
+        "contentUrl": "https://www.youtube.com/watch?v={{ v.id }}",
+        "inLanguage": "ko",
+        "publisher": { "@id": "{{ site.url }}{{ site.baseurl }}/#church" }
+      }
+    }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>

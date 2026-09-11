@@ -9,6 +9,8 @@ alt_url: /en/videos/
 video_player: true
 ---
 
+{% include video-schema.html lang="ko" %}
+
 <div class="container">
   <header class="page-header">
     <h1 class="page-title">예배 영상</h1>
@@ -28,7 +30,7 @@ video_player: true
     {%- assign lower = v.title | downcase -%}
     <article class="card card-video">
       <a class="video-thumb" href="https://www.youtube.com/watch?v={{ v.id }}" data-video-id="{{ v.id }}" aria-label="{{ day }} 예배 영상 재생">
-        <img src="https://i.ytimg.com/vi/{{ v.id }}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+        <img src="https://i.ytimg.com/vi/{{ v.id }}/hqdefault.jpg" alt="" width="480" height="360"{% if forloop.index <= 3 %} loading="eager"{% if forloop.first %} fetchpriority="high"{% endif %}{% else %} loading="lazy"{% endif %}>
         <span class="video-play" aria-hidden="true"></span>
       </a>
       {%- if lower contains "worship" %}

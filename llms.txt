@@ -1,0 +1,51 @@
+---
+layout: null
+permalink: /llms.txt
+---
+{%- assign faq_ko = site.data.faq.ko -%}
+{%- assign faq_en = site.data.faq.en -%}
+# {{ site.church.name }} ({{ site.church.name_en }})
+
+> {{ site.description }}. {{ site.motto_en }}.
+
+- 주소 / Address: {{ site.church.address }}
+- 지도 / Map: {{ site.church.map_url }}
+- 전화 / Phone: +1-{{ site.church.phone }} (휴대전화 / Mobile: +1-{{ site.church.mobile }})
+- 이메일 / Email: {{ site.church.email }}
+- 담임목사 / Senior Pastor: {{ site.pastor }} ({{ site.pastor_en }})
+- 교단 / Denomination: {{ site.denomination }} ({{ site.denomination_en }})
+- 설립 / Established: {{ site.established }}
+- 언어 / Language: 한국어 예배, 영어 통역 제공 / Korean with English interpretation
+- 페이스북 / Facebook: {{ site.social.facebook }}
+- 유튜브 / YouTube: {{ site.social.youtube }}
+
+## 예배 시간 / Service Times
+
+- 주일 예배 / Sunday Worship: 오전 10:30 / 10:30 AM
+- 교회학교 / Sunday School: 오전 10:30 / 10:30 AM
+- 수요 성경공부 / Wednesday Bible Study: 오전 10:00, 저녁 7:00 / 10:00 AM, 7:00 PM
+- 영어 성경공부 / Wednesday English Bible Study: 오전 10:00 / 10:00 AM
+- 금요 기도회 / Friday Prayer Meeting: 저녁 7:00 / 7:00 PM
+
+## 페이지 / Pages
+
+- [홈]({{ '/' | absolute_url }}): 예배 시간, 위치, 자주 묻는 질문
+- [교회 소개]({{ '/about/' | absolute_url }}): 인사말, 담임목사, 표어
+- [예배 안내]({{ '/services/' | absolute_url }}): 예배·모임 시간표, 처음 오시는 분 안내
+- [예배 영상]({{ '/videos/' | absolute_url }}): 매주 올라오는 주일 예배 영상
+- [소식]({{ '/news/' | absolute_url }}): 교회 소식과 공지
+- [오시는 길]({{ '/visit/' | absolute_url }}): 주소, 지도, 교통
+- [Welcome (English)]({{ '/en/' | absolute_url }}): Service times, location, contact
+- [About Us (English)]({{ '/en/about/' | absolute_url }})
+- [Worship Videos (English)]({{ '/en/videos/' | absolute_url }})
+
+## 자주 묻는 질문
+{% for item in faq_ko.items %}
+**Q. {{ item.q }}**
+{{ item.a }}
+{% endfor %}
+## Frequently Asked Questions
+{% for item in faq_en.items %}
+**Q. {{ item.q }}**
+{{ item.a }}
+{% endfor %}

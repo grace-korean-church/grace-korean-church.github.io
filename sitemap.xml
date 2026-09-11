@@ -13,10 +13,11 @@ layout: null
 
   <!-- Pages -->
   {% for page in site.pages %}
-    {% unless page.url contains '/404.html' or page.url contains '/assets/' or page.url == '/' or page.url contains 'feed.xml' or page.url contains 'sitemap.xml' or page.url contains 'robots.txt' %}
+    {% unless page.sitemap == false or page.url contains '/404.html' or page.url contains '/assets/' or page.url == '/' or page.url contains 'feed.xml' or page.url contains 'sitemap.xml' or page.url contains 'robots.txt' or page.url contains 'llms.txt' %}
     <url>
       <loc>{{ site.url }}{{ site.baseurl }}{{ page.url }}</loc>
-      <lastmod>{% if page.last_modified_at %}{{ page.last_modified_at | date_to_xmlschema }}{% elsif page.date %}{{ page.date | date_to_xmlschema }}{% else %}{{ site.time | date_to_xmlschema }}{% endif %}</lastmod>
+      {%- comment -%} 빌드 시각을 lastmod로 쓰면 매 배포마다 전부 바뀐 것으로 보여 신호가 무의미해진다. 실제 수정일이 있을 때만 쓴다. {%- endcomment %}
+      {% if page.last_modified_at %}<lastmod>{{ page.last_modified_at | date_to_xmlschema }}</lastmod>{% endif %}
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
     </url>
