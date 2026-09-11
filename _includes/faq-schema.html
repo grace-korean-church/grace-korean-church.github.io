@@ -1,52 +1,19 @@
-<!-- FAQ Structured Data (JSON-LD) -->
-<!-- 예배 시간이 바뀌면 services.md, _layouts/default.html의
-     openingHoursSpecification과 함께 고칠 것. 세 곳이 어긋나면
-     검색 결과에 잘못된 시간이 표시된다. -->
+<!-- FAQ 구조화 데이터. 구글은 2026-05부터 FAQ 리치 결과를 표시하지 않지만
+     Bing·AI 크롤러는 읽는다. 내용은 _data/faq.yml — 화면 FAQ와 같은 출처. -->
+{%- assign faq = site.data.faq[page.lang | default: 'ko'] %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
+  "inLanguage": "{{ page.lang | default: 'ko' }}",
   "mainEntity": [
+    {%- for item in faq.items %}
     {
       "@type": "Question",
-      "name": "{{ site.church.name }} 예배 시간은 언제인가요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "주일 예배는 오전 10시 30분에 드리고, 교회학교도 같은 시간에 모입니다. 주중에는 수요 성경공부(오전 10시·저녁 7시), 영어 성경공부(수요일 오전 10시), 금요 기도회(저녁 7시)가 있습니다."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "{{ site.church.name }}는 어디에 있나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "{{ site.church.name }}({{ site.church.name_en }})는 {{ site.church.address }}에 있습니다. 미국 일리노이주 몰린, Quad Cities 지역입니다."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "처음 방문해도 괜찮을까요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "{{ site.church.name }}는 처음 오시는 모든 분을 환영합니다. 예약이나 사전 연락 없이 편하게 오시면 됩니다. 특별한 격식 없이 편안한 옷차림으로 오셔도 좋고, 주일 예배 후에는 친교 시간이 있습니다."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "예배는 한국어로 드리나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "주일 예배는 한국어로 드리며 영어 통역이 함께 제공됩니다. 영어권 성도를 위한 영어 성경공부 모임이 수요일 오전 10시에 따로 있습니다."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "{{ site.church.name }}는 어느 교단 소속인가요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "{{ site.church.name }}는 하나님의성회(Assemblies of God) 소속이며, 1982년 8월 15일에 설립되었습니다."
-      }
-    }
+      "name": {{ item.q | jsonify }},
+      "acceptedAnswer": { "@type": "Answer", "text": {{ item.a | jsonify }} }
+    }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
   ]
 }
 </script>

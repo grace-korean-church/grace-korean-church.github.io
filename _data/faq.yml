@@ -1,0 +1,29 @@
+# 자주 묻는 질문. 홈 화면 FAQ 섹션, FAQ 구조화 데이터, llms.txt가 모두 이 파일을 읽는다.
+# 예배 시간이 바뀌면 services.md, _layouts/default.html(openingHoursSpecification)과 함께 고칠 것.
+# 주소는 _config.yml의 church.address와 같아야 한다 (script/test가 검사한다).
+ko:
+  title: "자주 묻는 질문"
+  items:
+    - q: "예배 시간은 언제인가요?"
+      a: "주일 예배는 오전 10시 30분에 드리고, 교회학교도 같은 시간에 모입니다. 주중에는 수요 성경공부(오전 10시·저녁 7시), 영어 성경공부(수요일 오전 10시), 금요 기도회(저녁 7시)가 있습니다."
+    - q: "교회는 어디에 있나요?"
+      a: "은혜한인교회(Grace Korean Church)는 4815 21st Ave A, Moline, IL 61265에 있습니다. 미국 일리노이주 몰린, Quad Cities 지역입니다."
+    - q: "처음 방문해도 괜찮을까요?"
+      a: "처음 오시는 모든 분을 환영합니다. 예약이나 사전 연락 없이 편하게 오시면 됩니다. 특별한 격식 없이 편안한 옷차림으로 오셔도 좋고, 주일 예배 후에는 친교 시간이 있습니다."
+    - q: "예배는 한국어로 드리나요?"
+      a: "주일 예배는 한국어로 드리며 영어 통역이 함께 제공됩니다. 영어권 성도를 위한 영어 성경공부 모임이 수요일 오전 10시에 따로 있습니다."
+    - q: "어느 교단 소속인가요?"
+      a: "은혜한인교회는 하나님의성회(Assemblies of God) 소속이며, 1982년 8월 15일에 설립되었습니다."
+en:
+  title: "Frequently Asked Questions"
+  items:
+    - q: "When are the services?"
+      a: "Sunday worship is at 10:30 AM, and Sunday school meets at the same time. During the week we have Wednesday Bible study (10:00 AM and 7:00 PM), an English Bible study on Wednesday at 10:00 AM, and a Friday prayer meeting at 7:00 PM."
+    - q: "Where is the church?"
+      a: "Grace Korean Church is at 4815 21st Ave A, Moline, IL 61265, in the Quad Cities area of Illinois."
+    - q: "Can I just show up as a first-time visitor?"
+      a: "Yes. Everyone is welcome, and no reservation or advance contact is needed. Dress is casual, and there is a fellowship meal after Sunday worship."
+    - q: "Are the services in Korean?"
+      a: "Sunday worship is held in Korean with English interpretation. There is also a separate English Bible study on Wednesday mornings at 10:00 AM."
+    - q: "What denomination is the church?"
+      a: "Grace Korean Church is part of the Assemblies of God and was founded on August 15, 1982."

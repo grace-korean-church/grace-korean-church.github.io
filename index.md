@@ -72,6 +72,9 @@ alt_url: /en/
   </div>
 </section>
 
+<!-- FAQ: 사람과 AI 답변 엔진이 그대로 가져다 쓸 문장. 내용은 _data/faq.yml -->
+{% include faq-section.html lang="ko" %}
+
 <!-- Recent News -->
 {% if site.posts.size > 0 %}
 <section class="section-fullwidth section-white">
