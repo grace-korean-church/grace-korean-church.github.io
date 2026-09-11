@@ -55,6 +55,14 @@ social:
 # GA4 속성을 만들면 측정 ID(G-XXXXXXXXXX)를 여기 넣기만 하면 동작한다.
 google_analytics: ""
 
+# 검색 엔진 사이트 소유 확인 코드. 비워두면 메타태그를 출력하지 않는다.
+# Google Search Console → 설정 → 소유권 확인 → HTML 태그의 content 값
+google_site_verification: ""
+# 네이버 서치어드바이저 → 사이트 관리 → 소유확인 → HTML 태그의 content 값
+naver_site_verification: ""
+# Bing Webmaster Tools → msvalidate.01 의 content 값
+bing_site_verification: ""
+
 # Build settings
 markdown: kramdown
 timezone: America/Chicago

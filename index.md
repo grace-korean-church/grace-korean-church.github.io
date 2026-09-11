@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "은혜한인교회"
+seo_title: "은혜한인교회 | 몰린·Quad Cities 한인교회 (Grace Korean Church, Moline IL)"
 description: "미국 일리노이주 몰린(Quad Cities)에서 함께 예배하는 한인 교회. 은혜한인교회 예배 안내와 오시는 길"
 keywords: "은혜한인교회, Grace Korean Church, 몰린 한인교회, Quad Cities 한인교회, 일리노이 한인교회"
 permalink: /

@@ -149,6 +149,52 @@ assert_contains "_site/en/index.html" ">Videos<" "영어 메뉴에 Videos"
 assert_contains "_site/videos/index.html" 'hreflang="en"' "한국어 영상 페이지 hreflang"
 assert_contains "_site/en/videos/index.html" 'hreflang="ko"' "영어 영상 페이지 hreflang"
 
+section "SEO"
+assert_contains "_site/index.html" "<title>은혜한인교회 | 몰린·Quad Cities 한인교회 (Grace Korean Church, Moline IL)</title>" "홈 제목에 지역 키워드"
+assert_absent "_site/index.html" "은혜한인교회 | 은혜한인교회" "홈 제목 중복 없음"
+assert_contains "_site/en/index.html" "<title>Grace Korean Church | Korean Church in Moline, IL (Quad Cities)</title>" "영어 홈 제목"
+assert_contains "_site/index.html" "자주 묻는 질문" "홈에 FAQ 섹션"
+faq_count=$(grep -c 'class="faq-question"' _site/index.html)
+if [ "$faq_count" = "5" ]; then pass "홈 FAQ 질문 5개"; else fail "홈 FAQ 질문 수: $faq_count"; fi
+assert_contains "_site/en/index.html" 'class="faq-question"' "영어 홈에 FAQ 섹션"
+addr=$(grep -m1 '^  address:' _config.yml | sed 's/.*address: *"\(.*\)"/\1/' | sed 's/, USA$//')
+if grep -qF "$addr" _data/faq.yml 2>/dev/null; then pass "FAQ 주소가 _config.yml과 일치"; else fail "FAQ 주소 불일치: $addr"; fi
+assert_built "404.html" "404 페이지 생성됨"
+assert_contains "_site/404.html" 'content="noindex' "404 페이지 noindex"
+assert_absent "_site/sitemap.xml" "/404.html" "sitemap에 404 없음"
+assert_built "llms.txt" "llms.txt 생성됨"
+assert_contains "_site/llms.txt" "Moline" "llms.txt에 주소"
+assert_contains "_site/llms.txt" "/videos/" "llms.txt에 영상 페이지"
+assert_absent "_site/sitemap.xml" "llms.txt" "sitemap에 llms.txt 없음"
+assert_contains "_site/robots.txt" "GPTBot" "robots.txt에 AI 크롤러 명시"
+assert_absent "_site/index.html" "google-site-verification" "인증 미설정 시 메타 미출력"
+assert_contains "_site/videos/index.html" '"@type": "VideoObject"' "영상 페이지 VideoObject"
+assert_contains "_site/news/2026/07/29/website-launch/index.html" '"@type": "NewsArticle"' "소식 글 NewsArticle"
+assert_contains "_site/index.html" '"@id": "https://grace-korean-church.github.io/#church"' "Church 스키마 @id"
+assert_contains "_site/index.html" '"telephone": "+1-309-764-3550"' "전화번호 국제 형식"
+assert_contains "_site/index.html" 'rel="preload" as="image"' "홈에 히어로 preload"
+assert_absent "_site/videos/index.html" 'rel="preload" as="image"' "영상 페이지에 히어로 preload 없음"
+assert_contains "_site/videos/index.html" 'fetchpriority="high"' "첫 썸네일 우선 로드"
+# JSON-LD 문법 검사: 모든 <script type="application/ld+json"> 블록을 파싱한다
+jsonld_bad=$(bundle exec ruby -rjson -e '
+  bad = []
+  %w[index.html en/index.html about/index.html videos/index.html en/videos/index.html news/2026/07/29/website-launch/index.html 404.html].each do |f|
+    path = "_site/#{f}"
+    next bad << "#{f}: 파일 없음" unless File.exist?(path)
+    File.read(path).scan(%r{<script type="application/ld\+json">(.*?)</script>}m).each_with_index do |(block), i|
+      JSON.parse(block)
+    rescue JSON::ParserError => e
+      bad << "#{f} 블록 #{i + 1}: #{e.message[0, 80]}"
+    end
+  end
+  puts bad
+' 2>&1)
+if [ -z "$jsonld_bad" ]; then
+  pass "JSON-LD 문법 오류 없음"
+else
+  fail "JSON-LD 문법 오류:"; printf '%s\n' "$jsonld_bad" | sed 's/^/      /'
+fi
+
 section "사이트 설정"
 assert_contains "_site/index.html" "은혜한인교회" "교회명 출력됨"
 assert_contains "_site/index.html" "Moline" "주소에 Moline 포함"

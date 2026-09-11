@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: 'ko' }}">
 <head>
+  {%- comment -%}
+    seo_title이 있으면 그대로, 없으면 "페이지 제목 | 사이트 제목".
+    홈은 seo_title로 지역 키워드를 넣는다. 없으면 "은혜한인교회 | 은혜한인교회 (…)"로 중복된다.
+  {%- endcomment -%}
+  {%- capture page_title -%}{% if page.seo_title %}{{ page.seo_title }}{% elsif page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}{%- endcapture %}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <!-- Primary Meta Tags -->
-  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
-  <meta name="title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}">
+  <title>{{ page_title }}</title>
+  <meta name="title" content="{{ page_title }}">
   <meta name="description" content="{{ page.description | default: page.summary | default: site.description }}">
   <meta name="keywords" content="{{ page.keywords | default: site.keywords }}">
   <meta name="author" content="{{ site.author }}">
@@ -25,7 +30,7 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ page.url | absolute_url }}">
-  <meta property="og:title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}">
+  <meta property="og:title" content="{{ page_title }}">
   <meta property="og:description" content="{{ page.description | default: page.summary | default: site.description }}">
   <meta property="og:site_name" content="{{ site.title }}">
   <meta property="og:locale" content="{% if page.lang == 'en' %}en_US{% else %}ko_KR{% endif %}">
@@ -39,7 +44,7 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="{{ page.url | absolute_url }}">
-  <meta name="twitter:title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}">
+  <meta name="twitter:title" content="{{ page_title }}">
   <meta name="twitter:description" content="{{ page.description | default: page.summary | default: site.description }}">
   <meta name="twitter:image" content="{{ page.image | default: '/assets/images/og-image.jpg' | absolute_url }}">
 
@@ -48,6 +53,7 @@
   {
     "@context": "https://schema.org",
     "@type": "Church",
+    "@id": "{{ site.url }}{{ site.baseurl }}/#church",
     "name": "{{ site.church.name }}",
     "alternateName": "{{ site.church.name_en }}",
     "url": "{{ site.url }}{{ site.baseurl }}",
@@ -65,7 +71,7 @@
       "latitude": {{ site.church.latitude }},
       "longitude": {{ site.church.longitude }}
     },
-    {% if site.church.phone != "" %}"telephone": "{{ site.church.phone }}",{% endif %}
+    {% if site.church.phone != "" %}"telephone": "+1-{{ site.church.phone }}",{% endif %}
     {% if site.church.email != "" %}"email": "{{ site.church.email }}",{% endif %}
     {% if site.established != "" %}"foundingDate": "{{ site.established }}",{% endif %}
     "slogan": "{{ site.motto }}",
@@ -76,6 +82,13 @@
         "opens": "10:30",
         "closes": "12:00",
         "description": "주일 예배 / Sunday Worship Service"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Wednesday",
+        "opens": "10:00",
+        "closes": "11:00",
+        "description": "수요 성경공부 · 영어 성경공부 / Wednesday Bible Study · English Bible Study"
       },
       {
         "@type": "OpeningHoursSpecification",
@@ -92,6 +105,8 @@
         "description": "금요 기도회 / Friday Prayer Meeting"
       }
     ],
+    "hasMap": "{{ site.church.map_url }}",
+    "areaServed": ["Moline, IL", "Quad Cities"],
     "description": "{{ site.description }}",
     "sameAs": [
       {%- assign links = "" | split: "" -%}
@@ -108,9 +123,19 @@
   <!-- RSS Feed -->
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | absolute_url }}">
 
+  <!-- 검색 엔진 소유 확인 (값이 있을 때만) -->
+  {%- if site.google_site_verification != "" %}
+  <meta name="google-site-verification" content="{{ site.google_site_verification }}">
+  {%- endif %}
+  {%- if site.naver_site_verification != "" %}
+  <meta name="naver-site-verification" content="{{ site.naver_site_verification }}">
+  {%- endif %}
+  {%- if site.bing_site_verification != "" %}
+  <meta name="msvalidate.01" content="{{ site.bing_site_verification }}">
+  {%- endif %}
+
   <!-- Additional SEO -->
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta name="googlebot" content="index, follow">
+  <meta name="robots" content="{{ page.robots | default: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' }}">
   <meta name="revisit-after" content="7 days">
   <meta name="format-detection" content="telephone=yes">
   <meta name="publisher" content="{{ site.church.name }}">
@@ -128,13 +153,15 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}">
   {%- endcomment -%}
 
-  <!-- Preload LCP hero image -->
+  <!-- Preload LCP hero image — 히어로가 있는 홈·영어 홈에서만. 다른 페이지에서는 낭비다. -->
+  {%- if page.url == "/" or page.url == "/en/" %}
   <link rel="preload" as="image" type="image/webp" fetchpriority="high"
         href="{{ '/assets/images/hero-bg.webp' | relative_url }}"
         media="(min-width: 768px)">
   <link rel="preload" as="image" type="image/webp" fetchpriority="high"
         href="{{ '/assets/images/hero-bg-mobile.webp' | relative_url }}"
         media="(max-width: 767px)">
+  {%- endif %}
 
   <!-- Preconnect to external origins -->
   <link rel="preconnect" href="https://www.google.com" crossorigin>
@@ -193,7 +220,7 @@
   {% include website-schema.html %}
   {% include navigation-schema.html %}
   {% include breadcrumb-schema.html %}
-  {% if page.url == "/" %}
+  {% if page.url == "/" or page.url == "/en/" %}
   {% include faq-schema.html %}
   {% endif %}
 </head>

@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "Welcome"
+seo_title: "Grace Korean Church | Korean Church in Moline, IL (Quad Cities)"
 description: "Grace Korean Church — a Korean-speaking congregation in Moline, Illinois, serving the Quad Cities area."
 keywords: "Grace Korean Church, Korean church Moline, Korean church Quad Cities, Korean church Illinois"
 permalink: /en/
