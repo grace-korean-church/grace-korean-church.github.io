@@ -521,6 +521,81 @@ img {
   font-size: 0.9rem;
 }
 
+/* 예배 영상 카드 — 썸네일 16:9, 클릭 시 같은 박스에 iframe */
+.card-video {
+  padding: 0;
+  overflow: hidden;
+}
+
+.card-video .card-meta,
+.card-video .card-title,
+.card-video .card-summary {
+  padding-left: var(--space-lg);
+  padding-right: var(--space-lg);
+}
+
+.card-video .card-meta,
+.card-video .video-thumb + .card-title {
+  padding-top: var(--space-md);
+}
+
+.card-video .card-title {
+  margin-bottom: var(--space-xs);
+}
+
+.card-video .card-summary {
+  padding-bottom: var(--space-lg);
+  font-size: 0.85rem;
+}
+
+.card-video .card-title:last-child {
+  padding-bottom: var(--space-lg);
+}
+
+.video-thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+}
+
+.video-thumb img,
+.video-thumb iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: cover;
+}
+
+.video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 64px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 12px;
+  transition: background-color 0.2s ease;
+}
+
+.video-play::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-40%, -50%);
+  border-style: solid;
+  border-width: 10px 0 10px 18px;
+  border-color: transparent transparent transparent #fff;
+}
+
+.video-thumb:hover .video-play {
+  background-color: var(--color-primary);
+}
+
 /* ==========================================================================
    Page Content
    ========================================================================== */

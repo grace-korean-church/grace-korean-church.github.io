@@ -30,10 +30,12 @@
       {%- if lang == 'en' %}
       <a href="{{ '/en/' | relative_url }}" class="nav-link">{{ t.nav.home }}</a>
       <a href="{{ '/en/about/' | relative_url }}" class="nav-link">{{ t.nav.about }}</a>
+      <a href="{{ '/en/videos/' | relative_url }}" class="nav-link">{{ t.nav.videos }}</a>
       {%- else %}
       <a href="{{ '/' | relative_url }}" class="nav-link">{{ t.nav.home }}</a>
       <a href="{{ '/about/' | relative_url }}" class="nav-link">{{ t.nav.about }}</a>
       <a href="{{ '/services/' | relative_url }}" class="nav-link">{{ t.nav.services }}</a>
+      <a href="{{ '/videos/' | relative_url }}" class="nav-link">{{ t.nav.videos }}</a>
       <a href="{{ '/news/' | relative_url }}" class="nav-link">{{ t.nav.news }}</a>
       <a href="{{ '/visit/' | relative_url }}" class="nav-link">{{ t.nav.visit }}</a>
       {%- endif %}

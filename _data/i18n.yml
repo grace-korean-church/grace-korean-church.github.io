@@ -7,6 +7,7 @@ ko:
     home: "홈"
     about: "교회 소개"
     services: "예배 안내"
+    videos: "예배 영상"
     news: "소식"
     visit: "오시는 길"
   footer:
@@ -29,6 +30,7 @@ en:
     home: "Home"
     about: "About"
     services: "Services"
+    videos: "Videos"
     news: "News"
     visit: "Visit"
   footer:

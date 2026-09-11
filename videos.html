@@ -1,0 +1,55 @@
+---
+layout: default
+title: "예배 영상"
+permalink: /videos/
+description: "은혜한인교회 주일 예배 영상. 매주 유튜브에 올라오는 예배 실황을 모아 보실 수 있습니다."
+keywords: "은혜한인교회 예배 영상, 주일예배 영상, 몰린 한인교회 설교, Quad Cities 한인교회 예배"
+alt_lang: en
+alt_url: /en/videos/
+video_player: true
+---
+
+<div class="container">
+  <header class="page-header">
+    <h1 class="page-title">예배 영상</h1>
+    <p class="page-subtitle">매주 주일 예배 실황을 유튜브에서 다시 보실 수 있습니다</p>
+  </header>
+
+  {% if site.data.videos and site.data.videos.size > 0 %}
+  <div class="card-grid">
+    {% for v in site.data.videos %}
+    {%- comment -%}
+      published는 UTC 문자열. 에포크 정수를 거쳐야 date 필터가 _config.yml의
+      timezone(America/Chicago)을 적용한다. 바로 포맷하면 UTC 날짜(월요일)가 나온다.
+      제목에 worship이 있으면 날짜 제목, 아니면 유튜브 원제목을 쓴다.
+    {%- endcomment -%}
+    {%- assign epoch = v.published | date: "%s" | plus: 0 -%}
+    {%- assign day = epoch | date: "%Y년 %-m월 %-d일" -%}
+    {%- assign lower = v.title | downcase -%}
+    <article class="card card-video">
+      <a class="video-thumb" href="https://www.youtube.com/watch?v={{ v.id }}" data-video-id="{{ v.id }}" aria-label="{{ day }} 예배 영상 재생">
+        <img src="https://i.ytimg.com/vi/{{ v.id }}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+        <span class="video-play" aria-hidden="true"></span>
+      </a>
+      {%- if lower contains "worship" %}
+      <h3 class="card-title">{{ day }} 주일 예배</h3>
+      <p class="card-summary">{{ v.title }}</p>
+      {%- else %}
+      <div class="card-meta"><span>{{ day }}</span></div>
+      <h3 class="card-title">{{ v.title }}</h3>
+      {%- endif %}
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="text-center" style="padding: 3rem 0;">
+    <p style="color: var(--color-text-muted); font-size: 1.1rem;">
+      아직 등록된 영상이 없습니다.
+    </p>
+  </div>
+  {% endif %}
+
+  <p class="text-center" style="margin-top: var(--space-xl);">
+    <a href="{{ site.social.youtube }}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">유튜브 채널 바로가기</a>
+  </p>
+</div>

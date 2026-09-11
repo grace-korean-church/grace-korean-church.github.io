@@ -205,5 +205,10 @@
   <!-- Mobile Menu Toggle -->
   <script defer src="{{ '/assets/js/mobile-menu.js' | relative_url }}"></script>
 
+  {%- if page.video_player %}
+  <!-- 예배 영상: 썸네일 클릭 시 플레이어 삽입 -->
+  <script defer src="{{ '/assets/js/videos.js' | relative_url }}"></script>
+  {%- endif %}
+
 </body>
 </html>

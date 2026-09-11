@@ -1,0 +1,55 @@
+---
+layout: default
+title: "Worship Videos"
+permalink: /en/videos/
+description: "Sunday worship service recordings from Grace Korean Church in Moline, Illinois, uploaded weekly to YouTube."
+keywords: "Grace Korean Church worship videos, Korean church Moline sermons, Quad Cities Korean church service"
+alt_lang: ko
+alt_url: /videos/
+video_player: true
+---
+
+<div class="container">
+  <header class="page-header">
+    <h1 class="page-title">Worship Videos</h1>
+    <p class="page-subtitle">Watch our Sunday worship services, uploaded every week</p>
+  </header>
+
+  {% if site.data.videos and site.data.videos.size > 0 %}
+  <div class="card-grid">
+    {% for v in site.data.videos %}
+    {%- comment -%}
+      published is a UTC string. Going through an epoch integer makes the date
+      filter apply _config.yml's timezone (America/Chicago); formatting the
+      string directly would give the UTC date (Monday).
+    {%- endcomment -%}
+    {%- assign epoch = v.published | date: "%s" | plus: 0 -%}
+    {%- assign day = epoch | date: "%B %-d, %Y" -%}
+    {%- assign lower = v.title | downcase -%}
+    <article class="card card-video">
+      <a class="video-thumb" href="https://www.youtube.com/watch?v={{ v.id }}" data-video-id="{{ v.id }}" aria-label="Play worship service of {{ day }}">
+        <img src="https://i.ytimg.com/vi/{{ v.id }}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+        <span class="video-play" aria-hidden="true"></span>
+      </a>
+      {%- if lower contains "worship" %}
+      <h3 class="card-title">Sunday Worship · {{ day }}</h3>
+      <p class="card-summary">{{ v.title }}</p>
+      {%- else %}
+      <div class="card-meta"><span>{{ day }}</span></div>
+      <h3 class="card-title">{{ v.title }}</h3>
+      {%- endif %}
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="text-center" style="padding: 3rem 0;">
+    <p style="color: var(--color-text-muted); font-size: 1.1rem;">
+      No videos yet.
+    </p>
+  </div>
+  {% endif %}
+
+  <p class="text-center" style="margin-top: var(--space-xl);">
+    <a href="{{ site.social.youtube }}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Visit our YouTube channel</a>
+  </p>
+</div>
