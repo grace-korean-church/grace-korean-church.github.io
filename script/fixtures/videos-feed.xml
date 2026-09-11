@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns:yt="http://www.youtube.com/xml/schemas/2015" xmlns:media="http://search.yahoo.com/mrss/" xmlns="http://www.w3.org/2005/Atom">
+ <title>Sample Channel</title>
+ <entry>
+  <id>yt:video:NEW222222222</id>
+  <yt:videoId>NEW222222222</yt:videoId>
+  <title>09062026 Sunday Worship Service</title>
+  <published>2026-09-07T04:50:36+00:00</published>
+ </entry>
+ <entry>
+  <id>yt:video:NEW111111111</id>
+  <yt:videoId>NEW111111111</yt:videoId>
+  <title>083026 Worship</title>
+  <published>2026-08-31T04:47:37+00:00</published>
+ </entry>
+ <entry>
+  <id>yt:video:OLD000000000</id>
+  <yt:videoId>OLD000000000</yt:videoId>
+  <title>082326 Worship</title>
+  <published>2026-08-24T04:38:14+00:00</published>
+ </entry>
+</feed>

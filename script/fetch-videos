@@ -1,0 +1,101 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+#
+# 유튜브 채널 RSS를 읽어 _data/videos.yml에 새 영상을 추가한다.
+#
+# 사용법:
+#   script/fetch-videos                      # 채널 피드 → _data/videos.yml
+#   script/fetch-videos --feed feed.xml      # 로컬 파일로 테스트
+#   script/fetch-videos --out /tmp/v.yml
+#
+# - 이미 있는 영상(id 기준)은 건드리지 않는다. 채널에서 내린 영상도 지우지 않는다.
+# - published 내림차순으로 저장한다.
+# - 새 영상이 없으면 파일을 다시 쓰지 않는다 (불필요한 커밋 방지).
+# - 피드를 못 읽으면 기존 파일을 그대로 두고 1로 종료한다.
+#
+# 표준 라이브러리만 쓴다. Jekyll 때문에 Ruby가 이미 있으므로 gem을 늘리지 않는다.
+
+require "net/http"
+require "rexml/document"
+require "yaml"
+require "json"
+require "optparse"
+
+CHANNEL_ID = "UCnheEKAjecPzdQpjWYPw37A"
+DEFAULT_FEED = "https://www.youtube.com/feeds/videos.xml?channel_id=#{CHANNEL_ID}"
+DEFAULT_OUT = File.expand_path("../_data/videos.yml", __dir__)
+
+HEADER = <<~YAML
+  # 유튜브 채널 영상 목록. script/fetch-videos가 자동으로 채운다.
+  # 최신순. 한 번 들어온 항목은 스크립트가 지우지 않는다.
+  # 채널에서 내린 영상은 여기서 손으로 지운다.
+YAML
+
+options = { feed: DEFAULT_FEED, out: DEFAULT_OUT }
+OptionParser.new do |o|
+  o.on("--feed SRC", "피드 URL 또는 파일 경로") { |v| options[:feed] = v }
+  o.on("--out PATH", "출력 YAML 경로") { |v| options[:out] = v }
+end.parse!
+
+def read_feed(src)
+  return File.read(src) unless src.start_with?("http://", "https://")
+
+  res = Net::HTTP.get_response(URI(src))
+  raise "HTTP #{res.code}" unless res.is_a?(Net::HTTPSuccess)
+
+  res.body
+end
+
+def parse_feed(xml)
+  doc = REXML::Document.new(xml)
+  entries = []
+  doc.elements.each("feed/entry") do |e|
+    id = e.elements["yt:videoId"]&.text.to_s.strip
+    title = e.elements["title"]&.text.to_s.strip
+    published = e.elements["published"]&.text.to_s.strip
+    next if id.empty? || published.empty?
+
+    entries << { "id" => id, "title" => title, "published" => published }
+  end
+  raise "no entries found" if entries.empty?
+
+  entries
+end
+
+def load_existing(path)
+  return [] unless File.exist?(path)
+
+  data = YAML.safe_load(File.read(path)) || []
+  raise "#{path} is not a list" unless data.is_a?(Array)
+
+  data
+end
+
+def to_yaml(videos)
+  body = videos.map do |v|
+    "- id: #{v['id']}\n" \
+    "  title: #{v['title'].to_json}\n" \
+    "  published: \"#{v['published']}\"\n"
+  end.join
+  HEADER + body
+end
+
+begin
+  fetched = parse_feed(read_feed(options[:feed]))
+  existing = load_existing(options[:out])
+rescue StandardError => e
+  warn "fetch-videos: #{e.message}"
+  exit 1
+end
+
+known = existing.map { |v| v["id"] }
+added = fetched.reject { |v| known.include?(v["id"]) }
+
+if added.empty?
+  puts "no new videos"
+  exit 0
+end
+
+merged = (existing + added).sort_by { |v| v["published"] }.reverse
+File.write(options[:out], to_yaml(merged))
+puts "#{added.size} new video(s) added"

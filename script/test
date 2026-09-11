@@ -55,6 +55,45 @@ assert_no_account_numbers() {
   fi
 }
 
+section "영상 수집 스크립트"
+tmp=$(mktemp -d)
+# 기존 항목 1개(OLD)만 든 파일에서 시작
+cat > "$tmp/videos.yml" <<'YAML'
+- id: OLD000000000
+  title: "082326 Worship"
+  published: "2026-08-24T04:38:14+00:00"
+YAML
+if script/fetch-videos --feed script/fixtures/videos-feed.xml --out "$tmp/videos.yml" >"$tmp/out1" 2>&1; then
+  pass "fetch-videos 실행 성공"
+else
+  fail "fetch-videos 실행 실패"; sed 's/^/      /' "$tmp/out1"
+fi
+assert_contains "$tmp/out1" "2 new video(s) added" "새 영상 2편 추가 보고"
+assert_contains "$tmp/videos.yml" "NEW222222222" "새 영상 추가됨"
+assert_contains "$tmp/videos.yml" "OLD000000000" "기존 영상 유지됨"
+if [ "$(grep -c '^- id:' "$tmp/videos.yml")" = "3" ]; then
+  pass "영상 3편(중복 없음)"
+else
+  fail "영상 편수 불일치: $(grep -c '^- id:' "$tmp/videos.yml")편"
+fi
+if [ "$(grep '^- id:' "$tmp/videos.yml" | head -1)" = "- id: NEW222222222" ]; then
+  pass "최신순 정렬"
+else
+  fail "최신순 정렬 아님: $(grep '^- id:' "$tmp/videos.yml" | head -1)"
+fi
+before=$(stat -f %m "$tmp/videos.yml" 2>/dev/null || stat -c %Y "$tmp/videos.yml")
+sleep 1
+script/fetch-videos --feed script/fixtures/videos-feed.xml --out "$tmp/videos.yml" >"$tmp/out2" 2>&1
+assert_contains "$tmp/out2" "no new videos" "재실행 시 새 영상 없음 보고"
+after=$(stat -f %m "$tmp/videos.yml" 2>/dev/null || stat -c %Y "$tmp/videos.yml")
+if [ "$before" = "$after" ]; then pass "변경 없으면 파일 미수정"; else fail "변경 없는데 파일 다시 씀"; fi
+if script/fetch-videos --feed "$tmp/does-not-exist.xml" --out "$tmp/videos.yml" >/dev/null 2>&1; then
+  fail "피드 실패 시 0이 아닌 종료 코드"
+else
+  pass "피드 실패 시 0이 아닌 종료 코드"
+fi
+rm -rf "$tmp"
+
 section "빌드"
 if bundle exec jekyll build --quiet 2>build.log; then
   pass "jekyll build 성공"
