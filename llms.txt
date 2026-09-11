@@ -27,7 +27,7 @@ permalink: /llms.txt
 
 ## 페이지 / Pages
 
-- [홈]({{ '/' | absolute_url }}): 예배 시간, 위치, 자주 묻는 질문
+- [홈]({{ '/' | absolute_url }}): 예배 시간, 위치, 처음 오시는 분 안내
 - [교회 소개]({{ '/about/' | absolute_url }}): 인사말, 담임목사, 표어
 - [예배 안내]({{ '/services/' | absolute_url }}): 예배·모임 시간표, 처음 오시는 분 안내
 - [예배 영상]({{ '/videos/' | absolute_url }}): 매주 올라오는 주일 예배 영상
