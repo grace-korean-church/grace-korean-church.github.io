@@ -12,6 +12,7 @@ Jekyll로 만들었고 GitHub Actions를 통해 GitHub Pages에 배포됩니다.
 ```
 _config.yml              사이트·교회 정보 (교회 정보의 유일한 출처)
 _data/i18n.yml           한/영 UI 문구 사전
+_data/faq.yml            자주 묻는 질문 (홈 화면·스키마·llms.txt 공용)
 _data/videos.yml         유튜브 영상 목록 (script/fetch-videos가 자동 갱신)
 _layouts/                default · page · post 레이아웃
 _includes/               헤더 · 푸터 · 구조화 데이터(JSON-LD)
@@ -103,6 +104,28 @@ summary: "목록에 표시될 한 줄 요약"
 **주의**: 저장소에 60일간 커밋이 없으면 GitHub가 예약 워크플로를 자동으로
 멈춥니다. 매주 영상이 올라오면 봇 커밋이 활동으로 잡혀 계속 돌지만, 멈췄을
 때는 Actions 탭에서 워크플로를 열어 **Enable workflow**를 누르면 됩니다.
+
+## 검색 노출 (SEO · AI 검색)
+
+사이트에 이미 들어 있는 것: 페이지별 제목·설명, 한/영 hreflang, Open Graph,
+교회·기사·영상 구조화 데이터, 화면 FAQ, sitemap, RSS, `llms.txt`(AI 크롤러용
+요약), robots.txt의 AI 크롤러 허용.
+
+**직접 하셔야 하는 일**
+
+1. [Google Search Console](https://search.google.com/search-console)에 사이트를
+   등록하고, HTML 태그 방식의 인증 코드를 `_config.yml`의
+   `google_site_verification`에 넣습니다. 등록 후 sitemap 주소
+   `https://grace-korean-church.github.io/sitemap.xml`을 제출합니다.
+2. [네이버 서치어드바이저](https://searchadvisor.naver.com)에 등록하고 인증
+   코드를 `naver_site_verification`에 넣습니다. 한인 검색은 네이버 비중이 큽니다.
+3. (선택) Bing Webmaster Tools 인증 코드를 `bing_site_verification`에.
+4. Google 비즈니스 프로필(지도)의 주소가 4915로 되어 있어 사이트·간판(4815)과
+   다릅니다. 지역 검색은 이름·주소·전화 일치를 중시하므로 한쪽으로 맞춰야 합니다.
+5. 페이스북·유튜브 채널 소개란에 사이트 주소를 넣습니다.
+
+FAQ 내용은 `_data/faq.yml` 한 곳에서 관리합니다. 홈 화면, 구조화 데이터,
+`llms.txt`가 모두 이 파일을 읽습니다.
 
 ## 이중 언어
 
