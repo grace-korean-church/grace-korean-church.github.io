@@ -12,6 +12,7 @@ Jekyll로 만들었고 GitHub Actions를 통해 GitHub Pages에 배포됩니다.
 ```
 _config.yml              사이트·교회 정보 (교회 정보의 유일한 출처)
 _data/i18n.yml           한/영 UI 문구 사전
+_data/videos.yml         유튜브 영상 목록 (script/fetch-videos가 자동 갱신)
 _layouts/                default · page · post 레이아웃
 _includes/               헤더 · 푸터 · 구조화 데이터(JSON-LD)
 _posts/                  소식 & 공지
@@ -22,7 +23,9 @@ index.md                 홈
 about.md services.md visit.md   한국어 페이지
 en/                      영어 페이지
 news.html                소식 목록
+videos.html en/videos.html   예배 영상 (한/영)
 script/test              빌드 검증 스크립트
+script/fetch-videos      유튜브 채널 피드 수집 스크립트
 docs/superpowers/        설계 문서 · 구현 계획
 ```
 
@@ -81,6 +84,25 @@ summary: "목록에 표시될 한 줄 요약"
 
 **교인 이름을 쓸 때는 `김*수` 형태로 가운데 글자를 마스킹합니다.**
 홈페이지는 검색엔진에 공개됩니다.
+
+## 예배 영상
+
+`/videos/` 페이지는 `_data/videos.yml`을 보여줍니다. 이 파일은 손으로 고칠
+필요가 없습니다.
+
+- `.github/workflows/fetch-videos.yml`이 **매주 월·화 아침(시카고 기준)**
+  유튜브 채널 RSS를 읽어 새 영상을 추가하고, 변경이 있으면 커밋한 뒤 배포를
+  호출합니다.
+- 바로 반영하고 싶으면 **Actions → Fetch YouTube videos → Run workflow**를
+  누르거나, 로컬에서 `script/fetch-videos`를 돌려 커밋합니다.
+- 채널에서 내린 영상은 자동으로 빠지지 않습니다. `_data/videos.yml`에서
+  해당 항목을 지우면 됩니다.
+- 피드는 최근 15편만 줍니다. 그보다 오래된 영상을 넣으려면 같은 형식으로
+  항목을 직접 추가합니다.
+
+**주의**: 저장소에 60일간 커밋이 없으면 GitHub가 예약 워크플로를 자동으로
+멈춥니다. 매주 영상이 올라오면 봇 커밋이 활동으로 잡혀 계속 돌지만, 멈췄을
+때는 Actions 탭에서 워크플로를 열어 **Enable workflow**를 누르면 됩니다.
 
 ## 이중 언어
 

@@ -1,0 +1,57 @@
+name: Fetch YouTube videos
+
+on:
+  schedule:
+    # 월·화 08:00 CDT (07:00 CST). 주일 밤 업로드를 월요일에 잡고,
+    # 예약 지연이나 늦은 업로드를 화요일에 한 번 더 잡는다.
+    - cron: "0 13 * * 1,2"
+  workflow_dispatch:
+
+permissions:
+  contents: write   # _data/videos.yml 커밋·푸시
+  actions: write    # 배포 워크플로 호출
+
+concurrency:
+  group: fetch-videos
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+
+      - name: Fetch channel feed
+        run: script/fetch-videos
+
+      - name: Detect changes
+        id: diff
+        run: |
+          if git diff --quiet -- _data/videos.yml; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _data/videos.yml
+          git commit -m "유튜브 새 영상 반영 ($(date -u +%Y-%m-%d))"
+          git push
+
+      # GITHUB_TOKEN으로 만든 푸시는 push 트리거 워크플로를 깨우지 않는다.
+      # workflow_dispatch는 예외이므로 배포를 직접 호출한다.
+      - name: Trigger deploy
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref main
