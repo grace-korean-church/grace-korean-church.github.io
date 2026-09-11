@@ -153,12 +153,6 @@ section "SEO"
 assert_contains "_site/index.html" "<title>은혜한인교회 | 몰린·Quad Cities 한인교회 (Grace Korean Church, Moline IL)</title>" "홈 제목에 지역 키워드"
 assert_absent "_site/index.html" "은혜한인교회 | 은혜한인교회" "홈 제목 중복 없음"
 assert_contains "_site/en/index.html" "<title>Grace Korean Church | Korean Church in Moline, IL (Quad Cities)</title>" "영어 홈 제목"
-assert_contains "_site/index.html" "자주 묻는 질문" "홈에 FAQ 섹션"
-faq_count=$(grep -c 'class="faq-question"' _site/index.html)
-if [ "$faq_count" = "5" ]; then pass "홈 FAQ 질문 5개"; else fail "홈 FAQ 질문 수: $faq_count"; fi
-assert_contains "_site/en/index.html" 'class="faq-question"' "영어 홈에 FAQ 섹션"
-addr=$(grep -m1 '^  address:' _config.yml | sed 's/.*address: *"\(.*\)"/\1/' | sed 's/, USA$//')
-if grep -qF "$addr" _data/faq.yml 2>/dev/null; then pass "FAQ 주소가 _config.yml과 일치"; else fail "FAQ 주소 불일치: $addr"; fi
 assert_built "404.html" "404 페이지 생성됨"
 assert_contains "_site/404.html" 'content="noindex' "404 페이지 noindex"
 assert_absent "_site/sitemap.xml" "/404.html" "sitemap에 404 없음"
@@ -175,6 +169,8 @@ paired=$(grep -l '^alt_url:' index.md en/index.md about.md en/about.md videos.ht
 if [ "$alt_urls" = "$((paired * 3))" ]; then pass "sitemap 언어 대응 줄 수 일치 (${paired}쪽 × 3)"; else fail "sitemap 언어 대응 줄 수: $alt_urls (기대 $((paired * 3)))"; fi
 # xmllint는 CI 러너에 없으므로 Ruby 표준 라이브러리로 파싱한다
 if bundle exec ruby -rrexml/document -e 'REXML::Document.new(File.read("_site/sitemap.xml"))' 2>/dev/null; then pass "sitemap XML 문법"; else fail "sitemap XML 문법 오류"; fi
+assert_absent "_site/index.html" "faq-question" "FAQ 섹션 없음"
+assert_absent "_site/index.html" "FAQPage" "FAQ 스키마 없음"
 assert_absent "_site/index.html" "google-site-verification" "인증 미설정 시 메타 미출력"
 assert_contains "_site/videos/index.html" '"@type": "VideoObject"' "영상 페이지 VideoObject"
 assert_contains "_site/news/2026/07/29/website-launch/index.html" '"@type": "NewsArticle"' "소식 글 NewsArticle"
@@ -231,7 +227,6 @@ assert_contains "_site/index.html" 'hreflang="en"' "한국어 홈에 hreflang �
 assert_contains "_site/en/index.html" 'hreflang="ko"' "영어 홈에 hreflang 링크"
 
 section "구조화 데이터"
-assert_contains "_site/index.html" '"@type": "FAQPage"' "FAQ 스키마 출력됨"
 assert_absent "_site/index.html" "/pages/" "구 URL 경로 없음"
 
 section "발행 파일"

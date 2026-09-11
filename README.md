@@ -12,7 +12,6 @@ Jekyll로 만들었고 GitHub Actions를 통해 GitHub Pages에 배포됩니다.
 ```
 _config.yml              사이트·교회 정보 (교회 정보의 유일한 출처)
 _data/i18n.yml           한/영 UI 문구 사전
-_data/faq.yml            자주 묻는 질문 (홈 화면·스키마·llms.txt 공용)
 _data/videos.yml         유튜브 영상 목록 (script/fetch-videos가 자동 갱신)
 _layouts/                default · page · post 레이아웃
 _includes/               헤더 · 푸터 · 구조화 데이터(JSON-LD)
@@ -108,7 +107,7 @@ summary: "목록에 표시될 한 줄 요약"
 ## 검색 노출 (SEO · AI 검색)
 
 사이트에 이미 들어 있는 것: 페이지별 제목·설명, 한/영 hreflang, Open Graph,
-교회·기사·영상 구조화 데이터, 화면 FAQ, sitemap, RSS, `llms.txt`(AI 크롤러용
+교회·기사·영상 구조화 데이터, sitemap, RSS, `llms.txt`(AI 크롤러용
 요약), robots.txt의 AI 크롤러 허용.
 
 **직접 하셔야 하는 일**
@@ -123,9 +122,6 @@ summary: "목록에 표시될 한 줄 요약"
 4. Google 비즈니스 프로필(지도)의 주소가 4915로 되어 있어 사이트·간판(4815)과
    다릅니다. 지역 검색은 이름·주소·전화 일치를 중시하므로 한쪽으로 맞춰야 합니다.
 5. 페이스북·유튜브 채널 소개란에 사이트 주소를 넣습니다.
-
-FAQ 내용은 `_data/faq.yml` 한 곳에서 관리합니다. 홈 화면, 구조화 데이터,
-`llms.txt`가 모두 이 파일을 읽습니다.
 
 ## 이중 언어
 

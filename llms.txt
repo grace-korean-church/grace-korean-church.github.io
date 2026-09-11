@@ -2,8 +2,6 @@
 layout: null
 permalink: /llms.txt
 ---
-{%- assign faq_ko = site.data.faq.ko -%}
-{%- assign faq_en = site.data.faq.en -%}
 # {{ site.church.name }} ({{ site.church.name_en }})
 
 > {{ site.description }}. {{ site.motto_en }}.
@@ -38,14 +36,3 @@ permalink: /llms.txt
 - [Welcome (English)]({{ '/en/' | absolute_url }}): Service times, location, contact
 - [About Us (English)]({{ '/en/about/' | absolute_url }})
 - [Worship Videos (English)]({{ '/en/videos/' | absolute_url }})
-
-## 자주 묻는 질문
-{% for item in faq_ko.items %}
-**Q. {{ item.q }}**
-{{ item.a }}
-{% endfor %}
-## Frequently Asked Questions
-{% for item in faq_en.items %}
-**Q. {{ item.q }}**
-{{ item.a }}
-{% endfor %}

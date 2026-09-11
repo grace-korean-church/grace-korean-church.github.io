@@ -57,6 +57,6 @@ permalink: /services/
 - **이메일** — [{{ site.church.email }}](mailto:{{ site.church.email }})
 - **페이스북** — [메시지 보내기]({{ site.social.facebook }})
 
-<!-- TODO: 예배 시간이 변경되면 이 페이지와 _includes/faq-schema.html,
-     _layouts/default.html의 openingHoursSpecification을 함께 고칠 것.
+<!-- TODO: 예배 시간이 변경되면 이 페이지와 _layouts/default.html의
+     openingHoursSpecification, llms.txt를 함께 고칠 것.
      세 곳이 어긋나면 검색 결과에 잘못된 시간이 표시된다. -->

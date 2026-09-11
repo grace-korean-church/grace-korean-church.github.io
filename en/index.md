@@ -92,5 +92,3 @@ alt_url: /
 
   </div>
 </div>
-
-{% include faq-section.html lang="en" %}
