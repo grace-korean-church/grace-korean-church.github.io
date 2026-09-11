@@ -81,12 +81,17 @@ if [ "$(grep '^- id:' "$tmp/videos.yml" | head -1)" = "- id: NEW222222222" ]; th
 else
   fail "최신순 정렬 아님: $(grep '^- id:' "$tmp/videos.yml" | head -1)"
 fi
-before=$(stat -f %m "$tmp/videos.yml" 2>/dev/null || stat -c %Y "$tmp/videos.yml")
+# 재실행 시 파일을 다시 쓰지 않는지: 기준 파일(marker)보다 새로워지면 안 된다.
+# stat의 형식 옵션은 macOS(BSD)와 리눅스(GNU)가 달라 find -newer로 비교한다.
+touch "$tmp/marker"
 sleep 1
 script/fetch-videos --feed script/fixtures/videos-feed.xml --out "$tmp/videos.yml" >"$tmp/out2" 2>&1
 assert_contains "$tmp/out2" "no new videos" "재실행 시 새 영상 없음 보고"
-after=$(stat -f %m "$tmp/videos.yml" 2>/dev/null || stat -c %Y "$tmp/videos.yml")
-if [ "$before" = "$after" ]; then pass "변경 없으면 파일 미수정"; else fail "변경 없는데 파일 다시 씀"; fi
+if [ -z "$(find "$tmp/videos.yml" -newer "$tmp/marker")" ]; then
+  pass "변경 없으면 파일 미수정"
+else
+  fail "변경 없는데 파일 다시 씀"
+fi
 if script/fetch-videos --feed "$tmp/does-not-exist.xml" --out "$tmp/videos.yml" >/dev/null 2>&1; then
   fail "피드 실패 시 0이 아닌 종료 코드"
 else
