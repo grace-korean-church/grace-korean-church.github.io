@@ -1,6 +1,9 @@
 # 유튜브 채널 영상 목록. script/fetch-videos가 자동으로 채운다.
 # 최신순. 한 번 들어온 항목은 스크립트가 지우지 않는다.
 # 채널에서 내린 영상은 여기서 손으로 지운다.
+- id: 49UcOQp_Gk0
+  title: "09132026 Sunday Worship Service"
+  published: "2026-09-14T05:03:19+00:00"
 - id: wYqWZ4-SkRw
   title: "09062026 Sunday Worship Service"
   published: "2026-09-07T04:50:36+00:00"
