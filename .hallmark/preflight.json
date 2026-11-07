@@ -1,0 +1,26 @@
+{
+  "mode": "redesign",
+  "depth": "restyle",
+  "audience": "Church members and first-time visitors in Moline and Quad Cities",
+  "job": "visit and attend",
+  "keep": [
+    "page layout",
+    "all existing photos",
+    "content and routes",
+    "nav and video wiring",
+    "navy #1f4e79 from assets/css/style.css"
+  ],
+  "introduced": [
+    "warm ivory surfaces",
+    "Korean sans headings and English serif headings",
+    "quiet button states",
+    "warm dark theme"
+  ],
+  "files": [
+    "assets/css/style.css",
+    "_layouts/default.html",
+    "_includes/header.html",
+    "assets/js/theme-toggle.js",
+    "index.md"
+  ]
+}

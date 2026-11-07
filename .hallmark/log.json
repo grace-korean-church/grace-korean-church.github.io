@@ -1,0 +1,30 @@
+[
+ {
+  "mode": "redesign",
+  "depth": "restyle",
+  "scope": "site",
+  "shape": "kept",
+  "theme": "brand",
+  "axes": "light/roman-serif/cool",
+  "hero": "kept",
+  "nav": "kept",
+  "footer": "kept",
+  "imagery": "existing church and congregation photos",
+  "photos": [],
+  "entry": "warm ivory surfaces",
+  "fingerprint": "grace-church-warm-restyle",
+  "sections": [
+   "hero",
+   "location",
+   "welcome",
+   "news",
+   "footer"
+  ],
+  "signature": "existing church exterior and Sunday worship time",
+  "waived": [
+   "49b"
+  ],
+  "prompt": "Keep page layout and existing photos; make the church warm and comfortable",
+  "date": "2026-11-07"
+ }
+]

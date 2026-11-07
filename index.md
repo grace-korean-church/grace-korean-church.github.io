@@ -19,7 +19,7 @@ alt_url: /en/
     <p class="hero-time">주일예배 오전 10시 30분</p>
     <div class="hero-actions">
       <a href="{{ '/services/' | relative_url }}" class="btn btn-hero-primary">예배 안내</a>
-      <a href="{{ '/visit/' | relative_url }}" class="btn btn-hero-outline" style="border: 2px solid #fff; color: #fff;">오시는 길</a>
+      <a href="{{ '/visit/' | relative_url }}" class="btn btn-hero-outline">오시는 길</a>
     </div>
   </div>
 </section>
@@ -34,7 +34,7 @@ alt_url: /en/
           <span class="address-text">{{ site.church.address }}</span>
         </p>
         <div class="location-buttons">
-          <a href="{{ site.church.map_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline">📍 구글맵</a>
+          <a href="{{ site.church.map_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline">구글맵</a>
         </div>
       </div>
       <div class="column-map">
@@ -86,7 +86,7 @@ alt_url: /en/
         </div>
         <h3 class="card-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
         {% if post.summary %}<p class="card-summary">{{ post.summary }}</p>{% endif %}
-        <a href="{{ post.url | relative_url }}" class="card-link">자세히 보기 →</a>
+        <a href="{{ post.url | relative_url }}" class="card-link">자세히 보기</a>
       </article>
       {% endfor %}
     </div>

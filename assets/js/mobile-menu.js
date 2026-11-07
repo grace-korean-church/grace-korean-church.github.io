@@ -45,3 +45,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+
+// Cross-origin map controls can receive focus without matching iframe:focus.
+// Keep a visible ring around the embedded map while its document owns focus.
+(function () {
+  function syncFrameFocus() {
+    document.querySelectorAll('iframe.frame-focused').forEach(function (frame) {
+      frame.classList.remove('frame-focused');
+    });
+    var active = document.activeElement;
+    if (active && active.tagName === 'IFRAME') active.classList.add('frame-focused');
+  }
+  window.addEventListener('blur', function () { setTimeout(syncFrameFocus, 0); });
+  window.addEventListener('focus', syncFrameFocus);
+  document.addEventListener('focusin', syncFrameFocus);
+})();

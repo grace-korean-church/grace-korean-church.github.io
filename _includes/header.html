@@ -40,7 +40,7 @@
       <a href="{{ '/visit/' | relative_url }}" class="nav-link">{{ t.nav.visit }}</a>
       {%- endif %}
       <a href="{{ switch_url | relative_url }}" class="nav-link nav-lang" hreflang="{% if lang == 'en' %}ko{% else %}en{% endif %}">{{ t.lang_switch.to_other }}</a>
-      <button class="theme-toggle" aria-label="{{ t.theme_toggle }}" title="{{ t.theme_toggle }}">🌙</button>
+      <button class="theme-toggle" aria-label="{{ t.theme_toggle }}" title="{{ t.theme_toggle }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z"/></svg></button>
     </nav>
   </div>
 </header>
